@@ -11,7 +11,7 @@ router.get('/register', authCheck.checkNotAuthenticated, (req, res) => {
     res.render('auth/register')
 })
 
-router.post('/', authCheck.checkNotAuthenticated, async (req, res) => {
+router.post('/register', authCheck.checkNotAuthenticated, async (req, res) => {
     const user = new User({
         username: req.body.username,
         password: req.body.password,
