@@ -1,13 +1,21 @@
+<% if(locals.user != null) { %>
+    <% console.log(locals.user) %>
 <nav>
     <div class="user-nav">
-        <img alt="avatar" class="avatar" src="./img/avatar_default_temp.png">
-        <h4>Username</h4>
+        <img alt="avatar" class="avatar" src="/img/avatar_default_temp.png">
+        <h4><%= user.username %></h4>
     </div>
 
     <ul>
         <li><i class="fa-solid fa-trophy"></i><a href="/">Game</a></li>
-        <li><i class="fa-solid fa-user"></i><a href="/user/username">User</a></li>
+        <li><i class="fa-solid fa-user"></i><a href="/user">User</a></li>
         <li><i class="fa-solid fa-circle-exclamation"></i><a href="/report">Report error</a></li>
-        <li><i class="fa-solid fa-arrow-right-from-bracket"></i>Log out</li>
+        <li>
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <form action="/auth/logout?_method=DELETE" method="POST">
+                <input type="submit" value="Log Out">
+            </form>
+        </li>
     </ul>
 </nav>
+<% } %>

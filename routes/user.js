@@ -1,14 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../models/user')
+const authCheck = require('../authCheck')
 
-router.get('/:username', async (req, res) => {
-    try {
-        const user = await User.find({username: req.params.username})
-        res.render('user/user', { user: user })
-    } catch {
-        res.redirect('/')
-    }
+router.get('/', authCheck.checkAuthenticated, async (req, res) => {
+    res.render(`user/user`, {user: req.user})
 })
 
 module.exports = router

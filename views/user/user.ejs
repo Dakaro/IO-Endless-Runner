@@ -1,7 +1,7 @@
 <main>
     <div class="user-info">
-        <img alt="avatar" class="avatar" src="../../public/img/avatar_default_temp.png">
-        <h1><% user.username %></h1>
+        <img alt="avatar" class="avatar" src="/img/avatar_default_temp.png">
+        <h1><%= user.username %></h1>
     </div>
     
     <div class="user-stats">
@@ -17,127 +17,13 @@
         </div>
     </div>
     
-    
-    
-    
     <div class="posts-wrapper">
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        <div class="post">
-            <h4>Post title</h4>
-            <span class="color-secondary small">11th January 2019</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus excepturi aliquam qui est velit
-                similique facere cumque, omnis assumenda, dolorum unde? Sunt voluptatem tempora hic nihil perspiciatis quae autem.
-                Officia.
-            </p>
-        </div>
-        
+        <% user.posts.forEach((post) => { %> 
+            <div class="post">
+                <h4><%= post.title %></h4>
+                <span class="color-secondary small"><%= post.date.toLocaleString() %></span>
+                <p><%= post.content %></p>
+            </div>
+        <% }) %>         
     </div>
 </main>
