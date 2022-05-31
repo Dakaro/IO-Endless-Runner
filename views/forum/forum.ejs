@@ -1,0 +1,29 @@
+<main>
+    forum page
+    <form action="/forum" method="POST">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" placeholder="type title">
+        </div>
+        <div>
+            <label for="content">Content</label>
+            <textarea required name="content" id="content" placeholder="type post"></textarea>
+        </div>
+        <button type="submit">Post</button>
+    </form>
+    all posts:
+    <div class="posts-wrapper">
+        <% posts.forEach((post) => { %> 
+            <div class="post">
+                <% if(post.title !== null) { %>
+                    <h4><%= post.title %></h4>
+                <% } else {%>
+                    <h4>no title</h4>
+                <% }%>
+                <span class="color-secondary small"><%= post.date.toLocaleString() %></span>
+                <p><%= post.content %></p>
+            </div>
+        <% }) %>         
+    </div>
+
+</main>

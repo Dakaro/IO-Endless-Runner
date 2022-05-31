@@ -15,9 +15,9 @@ router.post('/register', authCheck.checkNotAuthenticated, async (req, res) => {
     const user = new User({
         username: req.body.username,
         password: req.body.password,
-        coins: 0,
-        points: 0,
-        posts: []
+        //coins: 0,
+        //points: 0,
+        //posts: []
     })
     
     try {

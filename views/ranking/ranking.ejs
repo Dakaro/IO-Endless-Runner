@@ -1,0 +1,12 @@
+<main>top 10
+    <div class="posts-wrapper">
+        <% let i = 0 %>
+        <% users.forEach((user) => { %> 
+        <%  i = i + 1 %>
+            <div class="post">
+                <h4><%= i %>. place | <%= user.username %> | <%= user.points %> points</h4>
+            </div>
+        <% }) %>         
+    </div>
+
+</main>

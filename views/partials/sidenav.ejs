@@ -1,14 +1,18 @@
 <% if(locals.user != null) { %>
     <% console.log(locals.user) %>
 <nav>
+    <a href="/">GAME NAME</a>
     <div class="user-nav">
         <img alt="avatar" class="avatar" src="/img/avatar_default_temp.png">
         <h4><%= user.username %></h4>
     </div>
 
     <ul>
-        <li><i class="fa-solid fa-trophy"></i><a href="/">Game</a></li>
-        <li><i class="fa-solid fa-user"></i><a href="/user">User</a></li>
+        <li><i class="fa-solid fa-user"></i><a href="/user">Profile</a></li>
+        <li><i class="fa-solid fa-trophy"></i><a href="/">Play</a></li>
+        <li><a href="/forum">Forum</a></li>
+        <li><a href="/">Index</a></li>
+        <li><a href="/ranking">Top 10</a></li>
         <li><i class="fa-solid fa-circle-exclamation"></i><a href="/report">Report error</a></li>
         <li>
             <i class="fa-solid fa-arrow-right-from-bracket"></i>

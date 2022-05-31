@@ -1,22 +1,5 @@
 const mongoose = require('mongoose')
 
-const postSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    
-    date:{
-        type: Date,
-        required: true
-    },
-    
-    content: {
-        type: String,
-        required: true
-    }
-})
-
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -28,20 +11,31 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
+    joinDate: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
     
     coins: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
     
     points: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
-    
-    posts: {
-        type: [postSchema],
-        required: true
+
+    rank: {
+        type: Number
+    },
+
+    currSkinName: {
+        type: String
     }
 })
 

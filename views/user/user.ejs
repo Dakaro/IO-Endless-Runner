@@ -5,25 +5,7 @@
     </div>
     
     <div class="user-stats">
-        <p class="color-secondary">Playing since 27th August 2018</p>
-        <button>New post</button>
+        <p class="color-secondary">Playing since <%= user.joinDate.toLocaleDateString() %>, last seen DATE</p>
     </div>
     
-    <div class="posts-wrapper">
-        <div class="create-post">
-            <input type="text" class="input--big" placeholder="Post title">
-            <textarea></textarea>
-            <button>Save</button>
-        </div>
-    </div>
-    
-    <div class="posts-wrapper">
-        <% user.posts.forEach((post) => { %> 
-            <div class="post">
-                <h4><%= post.title %></h4>
-                <span class="color-secondary small"><%= post.date.toLocaleString() %></span>
-                <p><%= post.content %></p>
-            </div>
-        <% }) %>         
-    </div>
 </main>
