@@ -8,16 +8,18 @@
     </div>
 
     <ul>
-        <li><i class="fa-solid fa-user"></i><a href="/user">Profile</a></li>
-        <li><i class="fa-solid fa-trophy"></i><a href="/">Play</a></li>
-        <li><a href="/forum">Forum</a></li>
-        <li><a href="/">Index</a></li>
-        <li><a href="/ranking">Top 10</a></li>
-        <li><i class="fa-solid fa-circle-exclamation"></i><a href="/report">Report error</a></li>
+        <li><a href="/user"><i class="fa-solid fa-user"></i>Profile</a></li>
+        <li><a href="/"><i class="fa-solid fa-trophy"></i>Play</a></li>
+        <li><a href="/forum"><i class="fa-solid fa-comments"></i>Forum</a></li>
+        <!-- <li><a href="/">Index</a></li> -->
+        <li><a href="/ranking"><i class="fa-solid fa-ranking-star"></i>Top 10</a></li>
+        <li><a href="/report"><i class="fa-solid fa-circle-exclamation"></i>Report error</a></li>
         <li>
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
             <form action="/auth/logout?_method=DELETE" method="POST">
-                <input type="submit" value="Log Out">
+                <button type="submit">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log Out
+                </button>
             </form>
         </li>
     </ul>

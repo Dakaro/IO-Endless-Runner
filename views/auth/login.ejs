@@ -1,18 +1,16 @@
-<main>
-    <h1>Game name</h1>
-    <% if(messages.error) { %>
-        <%= messages.error %>
-    <% } %>
-    <form action="/" method="post">
-        <label for="username">Username</label>
-        <div>
-            <input name="username" placeholder="Username" type="text">
-        </div>
-        <label for="password">Password</label>
-        <div>
-            <input name="password" placeholder="Password" type="password">
-        </div>
-        <input type="submit" value="Login" class="button-link"></input>
-        <a href="/auth/register" class="button-link outline">Register</a>
-    </form>
-</main>
+<h1>Game name</h1>
+<% if(messages.error) { %>
+    <%= messages.error %>
+<% } %>
+<form action="/" method="post">
+    <label for="username">Username</label>
+    <div>
+        <input name="username" placeholder="Username" type="text">
+    </div>
+    <label for="password">Password</label>
+    <div>
+        <input name="password" placeholder="Password" type="password">
+    </div>
+    <input type="submit" value="Login" class="button-link"></input>
+    <a href="/auth/register" class="button-link outline">Register</a>
+</form>

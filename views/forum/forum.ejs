@@ -1,29 +1,30 @@
-<main>
-    forum page
+<h1>Forum</h1>
+<div class="posts-wrapper">
     <form action="/forum" method="POST">
         <div>
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" placeholder="type title">
+            <label for="title" hidden>Title</label>
+            <input type="text" name="title" id="title" placeholder="Post title" class="input--big">
         </div>
         <div>
-            <label for="content">Content</label>
-            <textarea required name="content" id="content" placeholder="type post"></textarea>
+            <label for="content" hidden>Content</label>
+            <textarea required name="content" id="content" placeholder="Enter your post here"></textarea>
         </div>
         <button type="submit">Post</button>
     </form>
-    all posts:
-    <div class="posts-wrapper">
-        <% posts.forEach((post) => { %> 
-            <div class="post">
-                <% if(post.title !== null) { %>
-                    <h4><%= post.title %></h4>
-                <% } else {%>
-                    <h4>no title</h4>
-                <% }%>
-                <span class="color-secondary small"><%= post.date.toLocaleString() %></span>
-                <p><%= post.content %></p>
-            </div>
-        <% }) %>         
-    </div>
+</div>
 
-</main>
+<div class="posts-wrapper">
+    <% posts.forEach((post) => { %> 
+        <div class="post">
+            <img alt="avatar" class="avatar" src="/img/avatar_default_temp.png">
+            <span><%= post.author %></span>
+            <span class="color-secondary small"><%= post.date.toLocaleString() %></span>
+            <% if(post.title !== null) { %>
+                <h4><%= post.title %></h4>
+            <% } else {%>
+                <h4>No title</h4>
+            <% }%>
+            <p><%= post.content %></p>
+        </div>
+    <% }) %>         
+</div>
