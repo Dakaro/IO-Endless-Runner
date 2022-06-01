@@ -22,6 +22,7 @@ router.post('/register', authCheck.checkNotAuthenticated, async (req, res) => {
     
     try {
         const newUser = await user.save()
+        console.log(newUser)
         res.redirect(`/`)
     } catch {
         res.render('/auth', {

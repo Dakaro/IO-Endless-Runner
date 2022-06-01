@@ -55,3 +55,6 @@ db.once('open', () => console.log('Connected to database'))
 
 const port = 3000
 app.listen(process.env.PORT || port, () => console.log(`Server running on port ${port}`))
+
+
+module.exports = app
