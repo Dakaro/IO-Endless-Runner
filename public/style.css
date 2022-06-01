@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url("font-awesome/css/fontawesome-all.min.css"); 
 
 :root{
     --primary: #0A2239;
@@ -41,8 +42,8 @@ body{
 /* Side navigation */
 
 nav{
-    height: 100%;
-    flex-basis: 8%;
+    /* height: 100%; */
+    flex-basis: 9%;
     background-color: var(--primaryDark);
     padding: 1.25rem;
 }
@@ -112,7 +113,7 @@ nav button{
 /* Content area */
 
 main{
-    flex-basis: 92%;
+    flex-basis: 91%;
     text-align: center;
 }
 
@@ -305,6 +306,7 @@ input{
     padding: 0.75rem 1.25rem;
     border-radius: 1rem;
     color: var(--light);
+    transition: all 0.35s;
     font-family: var(--fontRegular);
 }
 
@@ -333,6 +335,13 @@ label {
     font-weight: 600;
     font-size: 0.85rem;
 }
+/* 
+.search::after{
+    content: '\f002';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    display: inline-block;
+} */
 
 .posts-wrapper input,
 .posts-wrapper textarea{
@@ -365,4 +374,45 @@ label {
 
 ::placeholder { /* Most modern browsers support this now. */
    color:    var(--primaryLight400);
+}
+
+.user-catalog{
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.user-card{
+    flex-basis: 15%;
+    text-decoration: none;
+    color: var(--light);
+    background-color: var(--primaryLight);
+    padding: 1rem 1.5rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.5s;
+}
+
+.user-card:hover{
+    background-color: var(--primaryLight200);
+    border-color: var(--primaryLight400);
+}
+
+.user-card img{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.user-card h3{
+    margin: 0.25rem 0;
+    font-size: 1.1rem;
+}
+
+.user-card .small{
+    margin: 0.1rem;
+    font-size: 0.9rem;
 }

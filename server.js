@@ -16,6 +16,7 @@ const authRouter = require('./routes/auth.js')
 const passport = require('passport')
 const forumRouter = require('./routes/forum.js')
 const rankingRouter = require('./routes/ranking')
+const catalogRouter = require('./routes/catalog')
 
 const app = express()
 const initializePassport = require('./passport-config')
@@ -44,6 +45,7 @@ app.use('/report', reportRouter)
 app.use('/auth', authRouter)
 app.use('/forum', forumRouter)
 app.use('/ranking', rankingRouter)
+app.use('/catalog', catalogRouter)
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 const db = mongoose.connection

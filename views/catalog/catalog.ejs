@@ -1,0 +1,16 @@
+<h1>All users</h1>
+
+<form action="/catalog" method="GET">
+    <input placeholder="Search..." class="search" name="username" value=<%= searchOptions.username ? searchOptions.username : null %>  >
+    <button type="submit">Search</button>
+</form>
+
+<div class="user-catalog">
+    <% users && users.forEach((catalogUser) => { %> 
+        <a href="/user/<%= catalogUser._id %> " class="user-card">
+            <img alt="avatar" class="avatar" src="/img/avatar_default_temp.png">
+            <h3><%= catalogUser.username %></h3>
+            <p class="color-secondary small"><%= catalogUser.coins %> coins | <%= catalogUser.points %> points</p>
+        </a>
+        <% }) %>
+</div>
