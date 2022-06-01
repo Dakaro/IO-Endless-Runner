@@ -5,10 +5,10 @@
     <button type="submit">Search</button>
 </form>
 
-<div class="user-catalog">
+<div class="card-wrapper">
     <% users && users.forEach((catalogUser) => { %> 
-        <a href="/user/<%= catalogUser._id %> " class="user-card">
-            <img alt="avatar" class="avatar" src="/img/avatar_default_temp.png">
+        <a href="/user/<%= catalogUser._id %> " class="card selectable">
+            <img alt="avatar" class="avi avatar" src="/avis/<%= catalogUser.equippedSkin ? catalogUser.equippedSkin : 0 %>.gif">
             <h3><%= catalogUser.username %></h3>
             <p class="color-secondary small"><%= catalogUser.coins %> coins | <%= catalogUser.points %> points</p>
         </a>

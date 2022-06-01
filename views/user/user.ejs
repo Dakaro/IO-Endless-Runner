@@ -1,12 +1,24 @@
 <% let userToRender = userToDisplay ? userToDisplay : user %> 
 <main>
     <div class="user-info">
-        <img alt="avatar" class="avatar" src="/img/avatar_default_temp.png">
+        <img alt="avatar" class="avatar avi--big" src="/avis/<%= userToRender.equippedSkin ? userToRender.equippedSkin : 0 %>.gif">
         <h1><%= userToRender.username %></h1>
+        <p class="color-secondary">Playing since <%= userToRender.joinDate.toLocaleDateString() %>, last seen DATE</p>
     </div>
     
-    <div class="user-stats">
-        <p class="color-secondary">Playing since <%= userToRender.joinDate.toLocaleDateString() %>, last seen DATE</p>
+    <h2>Unlocked skins</h2>
+    <div class="card-wrapper">
+        <% userToRender.unlockedSkins && userToRender.unlockedSkins.forEach((skinIndex) => { %> 
+            <div class="avi-card">
+                <img src="/avis/<%= skinIndex %>.gif" alt="avatar" class="avatar avi--big">
+                
+                <% if(userToRender.equippedSkin === skinIndex){ %>
+                    <button disabled="true">Equipped</button>
+                <% } else{ %>
+                    <a class="button-link">Equip</a>
+                <% } %> 
+            </div>
+        <% }) %> 
     </div>
     
 </main>
