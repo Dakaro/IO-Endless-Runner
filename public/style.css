@@ -44,7 +44,7 @@ body{
 
 nav{
     /* height: 100%; */
-    flex-basis: 9%;
+    flex-basis: 10%;
     background-color: var(--primaryDark);
     padding: 1.25rem;
 }
@@ -100,7 +100,8 @@ nav .user-nav{
 
 .avatar{
     border-radius: 10rem;
-    border: 3px solid var(--primaryLight400);
+    border: 3px solid var(--secondary);
+    box-shadow: 0px 0px 5px 0px var(--primaryDark);
 }
 
 nav ul li a.selected, 
@@ -122,8 +123,9 @@ nav button{
 /* Content area */
 
 main{
-    flex-basis: 91%;
+    flex-basis: 90%;
     text-align: center;
+    overflow-y: auto;
 }
 
 .user-info{
@@ -153,6 +155,18 @@ main{
     text-align: left;
 }
 
+.gradient .post:nth-of-type(1){
+    background-color: var(--primaryLight400);
+}
+
+.gradient .post:nth-of-type(2){
+    background-color: var(--primaryLight300);
+}
+
+.gradient .post:nth-of-type(3){
+    background-color: var(--primaryLight200);
+}
+
 .post{
     background-color: var(--primaryLight);
     border-radius: 1rem;
@@ -161,6 +175,10 @@ main{
     width: 55%;
     box-sizing: border-box;
     text-align: left;
+    border: 1px solid var(--primaryLight300);
+    /* background: linear-gradient(0deg, var(--primaryLight) 0%, var(--primaryLight200) 100%); */
+    box-shadow: 0px 0px 10px 2px var(--primaryDark);
+    
 }
 
 .post .small{
@@ -183,8 +201,18 @@ main{
 h1{
     font-weight: 900;
     font-size: 2.7rem;
-    margin-top: 6rem;
-    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+.sticky-container-top{
+    top: 0;
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+    position: sticky;
+    background-color: var(--primary);
+    /* box-shadow: 0px 0px 10px 2px var(--primaryDark);
+    border-bottom: 1px solid var(--primaryDark); */
+    box-sizing: border-box;
 }
 
 .user-info h1{
@@ -353,8 +381,8 @@ label {
 }
 
 .post img{
-    width: 1.5rem;
-    height: 1.5rem;
+    /* width: 1.5rem;
+    height: 1.5rem; */
     margin-right: 0.5rem
 }
 
@@ -381,12 +409,13 @@ label {
 }
 
 .card-wrapper{
-    margin-top: 3rem;
+    margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
 }
+
 
 .card{
     flex-basis: 15%;
@@ -396,8 +425,10 @@ label {
     padding: 1rem 1.5rem;
     margin: 1rem;
     border-radius: 1rem;
-    border: 2px solid transparent;
     transition: all 0.5s;
+    border: 1px solid var(--primaryLight300);
+    /* background: linear-gradient(0deg, var(--primaryLight) 0%, var(--primaryLight200) 100%); */
+    box-shadow: 0px 0px 10px 2px var(--primaryDark);
 }
 
 .card.selectable{
@@ -463,4 +494,35 @@ button[disabled="true"],
     color: var(--primaryLight400);
     cursor: default;
     pointer-events: none;
+}
+
+.ranking-section{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    width: 35%;
+}
+
+.ranking-section h3{
+    margin: 0.5rem;
+}
+
+.card--small{
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0.5rem 0;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card--small h4{
+    display: inline-block;
+    margin: 0.5rem;
+}
+
+.card--small .avi{
+    width: 1.5rem;
+    height: 1.5rem;
 }
