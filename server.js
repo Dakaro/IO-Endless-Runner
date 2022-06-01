@@ -17,6 +17,7 @@ const passport = require('passport')
 const forumRouter = require('./routes/forum.js')
 const rankingRouter = require('./routes/ranking')
 const catalogRouter = require('./routes/catalog')
+const shopRouter = require('./routes/shop')
 
 const app = express()
 const initializePassport = require('./passport-config')
@@ -46,6 +47,7 @@ app.use('/auth', authRouter)
 app.use('/forum', forumRouter)
 app.use('/ranking', rankingRouter)
 app.use('/catalog', catalogRouter)
+app.use('/shop', shopRouter)
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 const db = mongoose.connection
@@ -55,3 +57,6 @@ db.once('open', () => console.log('Connected to database'))
 
 const port = 3000
 app.listen(process.env.PORT || port, () => console.log(`Server running on port ${port}`))
+
+
+module.exports = app

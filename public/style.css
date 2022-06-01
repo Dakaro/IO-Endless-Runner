@@ -15,6 +15,7 @@
     --secondary: #A0CFCD;
     --tertiary: #F97B77;
     --tertiaryDark: #F8544F;
+    --gold: #FB8B24;
     
     /* --fontRegular: 'Inter'; */
     --fontRegular: 'Roboto';
@@ -43,7 +44,7 @@ body{
 
 nav{
     /* height: 100%; */
-    flex-basis: 9%;
+    flex-basis: 10%;
     background-color: var(--primaryDark);
     padding: 1.25rem;
 }
@@ -76,6 +77,13 @@ nav ul li i{
 
 nav h4{
     margin: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+nav h5{
+    margin: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
 }
 
 nav img{
@@ -92,6 +100,8 @@ nav .user-nav{
 
 .avatar{
     border-radius: 10rem;
+    border: 3px solid var(--secondary);
+    box-shadow: 0px 0px 5px 0px var(--primaryDark);
 }
 
 nav ul li a.selected, 
@@ -113,8 +123,9 @@ nav button{
 /* Content area */
 
 main{
-    flex-basis: 91%;
+    flex-basis: 90%;
     text-align: center;
+    overflow-y: auto;
 }
 
 .user-info{
@@ -124,11 +135,6 @@ main{
     background-color: var(--primary);
     padding: 1.5rem;
     margin-top: 3rem;
-}
-
-.user-info img{
-    width: 8rem;
-    height: 8rem;
 }
 
 .user-stats{
@@ -149,6 +155,18 @@ main{
     text-align: left;
 }
 
+.gradient .post:nth-of-type(1){
+    background-color: var(--primaryLight400);
+}
+
+.gradient .post:nth-of-type(2){
+    background-color: var(--primaryLight300);
+}
+
+.gradient .post:nth-of-type(3){
+    background-color: var(--primaryLight200);
+}
+
 .post{
     background-color: var(--primaryLight);
     border-radius: 1rem;
@@ -157,6 +175,10 @@ main{
     width: 55%;
     box-sizing: border-box;
     text-align: left;
+    border: 1px solid var(--primaryLight300);
+    /* background: linear-gradient(0deg, var(--primaryLight) 0%, var(--primaryLight200) 100%); */
+    box-shadow: 0px 0px 10px 2px var(--primaryDark);
+    
 }
 
 .post .small{
@@ -179,8 +201,18 @@ main{
 h1{
     font-weight: 900;
     font-size: 2.7rem;
-    margin-top: 6rem;
-    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+.sticky-container-top{
+    top: 0;
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+    position: sticky;
+    background-color: var(--primary);
+    /* box-shadow: 0px 0px 10px 2px var(--primaryDark);
+    border-bottom: 1px solid var(--primaryDark); */
+    box-sizing: border-box;
 }
 
 .user-info h1{
@@ -349,8 +381,8 @@ label {
 }
 
 .post img{
-    width: 1.5rem;
-    height: 1.5rem;
+    /* width: 1.5rem;
+    height: 1.5rem; */
     margin-right: 0.5rem
 }
 
@@ -376,15 +408,16 @@ label {
    color:    var(--primaryLight400);
 }
 
-.user-catalog{
-    margin-top: 3rem;
+.card-wrapper{
+    margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
 }
 
-.user-card{
+
+.card{
     flex-basis: 15%;
     text-decoration: none;
     color: var(--light);
@@ -392,27 +425,104 @@ label {
     padding: 1rem 1.5rem;
     margin: 1rem;
     border-radius: 1rem;
-    cursor: pointer;
-    border: 2px solid transparent;
     transition: all 0.5s;
+    border: 1px solid var(--primaryLight300);
+    /* background: linear-gradient(0deg, var(--primaryLight) 0%, var(--primaryLight200) 100%); */
+    box-shadow: 0px 0px 10px 2px var(--primaryDark);
 }
 
-.user-card:hover{
+.card.selectable{
+    cursor: pointer;
+}
+
+.card.selectable:hover{
     background-color: var(--primaryLight200);
     border-color: var(--primaryLight400);
 }
 
-.user-card img{
-    width: 1.5rem;
-    height: 1.5rem;
+.card .avi{
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
-.user-card h3{
+.card h3{
     margin: 0.25rem 0;
     font-size: 1.1rem;
 }
 
-.user-card .small{
+.card .small{
     margin: 0.1rem;
     font-size: 0.9rem;
+}
+
+.avi--big{
+    width: 10rem;
+    height: 10rem;
+}
+
+.avi-card{
+    flex-basis: 10%;
+    margin: 1rem;
+}
+
+.avi-card h3{
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+.avi-card i,
+.icon--gold{
+    color: var(--gold);
+    margin-right: 0.5rem;
+}
+
+.icon--gold--left{
+    margin-right: 0.3rem;
+    margin-left: 0.3rem;
+}
+
+.avi-card p{
+    font-weight: 600;
+    color: var(--secondary);
+    margin-top: 1.2rem;
+}
+
+button[disabled="true"],
+.button-link[disabled="true"]{
+    background-color: var(--primaryLight200);
+    border: 2px solid var(--primaryLight400);
+    color: var(--primaryLight400);
+    cursor: default;
+    pointer-events: none;
+}
+
+.ranking-section{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    width: 35%;
+}
+
+.ranking-section h3{
+    margin: 0.5rem;
+}
+
+.card--small{
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0.5rem 0;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card--small h4{
+    display: inline-block;
+    margin: 0.5rem;
+}
+
+.card--small .avi{
+    width: 1.5rem;
+    height: 1.5rem;
 }

@@ -1,0 +1,22 @@
+<h1>Shop</h1>
+<p class="color-secondary">Your balance: <i class="fa-solid fa-coins icon--gold--left icon--gold"></i><strong><%= user.coins %></p>
+
+<div class="card-wrapper">
+    <% for(var i = 1; i <= Object.keys(prices).length; ++i){ %> 
+        <div class="avi-card">
+            <img src="/avis/<%= i %>.gif" alt="avatar" class="avatar avi--big">
+            
+            <% if(user.unlockedSkins.includes(i)){ %>
+                <p><i class="fa-solid fa-check"></i> Unlocked!</p>
+            <% } else if(prices[i] > user.coins){ %>
+                <h3><i class="fa-solid fa-coins"></i> <%= prices[i] %></h3>
+                <button disabled="true">Unlock</button>
+            <% } else{ %> 
+                <h3><i class="fa-solid fa-coins"></i> <%= prices[i] %></h3>
+                <form action="/shop/<%= i %>" method="POST">
+                    <button type="submit">Unlock</button>
+                </form>
+            <% } %> 
+        </div>
+    <% } %> 
+</div>

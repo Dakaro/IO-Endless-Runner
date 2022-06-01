@@ -2,13 +2,17 @@
 <nav>
     <a href="/">GAME NAME</a>
     <div class="user-nav">
-        <img alt="avatar" class="avatar" src="/img/avatar_default_temp.png">
-        <h4><%= user.username %></h4>
+        <img alt="avatar" class="avatar" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
+        <div>
+            <h4><%= user.username %></h4>
+            <h5><i class="fa-solid fa-coins icon--gold--left icon--gold"></i><%= user.coins %> </h5>
+        </div>
     </div>
 
     <ul>
         <li><a href="/user"><i class="fa-solid fa-user"></i>Profile</a></li>
         <li><a href="/"><i class="fa-solid fa-trophy"></i>Play</a></li>
+        <li><a href="/shop"><i class="fa-solid fa-cart-shopping"></i>Shop</a></li>
         <li><a href="/forum"><i class="fa-solid fa-comments"></i>Forum</a></li>
         <li><a href="/catalog"><i class="fa-solid fa-users"></i>All users</a></li>
         <li><a href="/ranking"><i class="fa-solid fa-ranking-star"></i>Top 10</a></li>

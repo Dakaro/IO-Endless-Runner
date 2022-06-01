@@ -34,8 +34,14 @@ const userSchema = new mongoose.Schema({
         type: Number
     },
 
-    currSkinName: {
-        type: String
+    unlockedSkins: {
+        type: [Number],
+        default: []
+    },
+    
+    equippedSkin: {
+        type: Number,
+        default: 0
     }
 })
 

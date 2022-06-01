@@ -1,12 +1,63 @@
-<main>top 10
-    <div class="posts-wrapper">
+<% 
+    const fieldCompare = (a, b, field) => {
+        if(a[field] < b[field]) return 1
+        if(a[field] > b[field]) return -1
+        return 0    
+    }
+    
+    const sortUsersByField = (users, field) => {
+        users.sort((a, b) => fieldCompare(a, b, field))
+        return users
+    }
+%> 
+
+<div class="sticky-container-top">
+    <h1>Top 10</h1>
+</div>
+    <div class="card-wrapper gradient">
+    <div class="ranking-section">
+        <h3>Coins</h3>
         <% let i = 0 %>
-        <% users.forEach((user) => { %> 
-        <%  i = i + 1 %>
-            <div class="post">
-                <h4><%= i %>. place | <%= user.username %> | <%= user.points %> points</h4>
+        <% sortUsersByField(users, 'coins').forEach((user) => { %> 
+            <%  i = i + 1 %>
+            <div class="post card--small">
+                <h4>
+                    <% if(i === 1){ %>
+                        <i class="fa-solid fa-trophy icon--gold"></i>
+                    <% } else { %>
+                        <strong class="color-secondary"><%= i %>. </strong>
+                    <% } %>
+                    <img alt="avatar" class="avatar avi" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
+                    <%= user.username %>
+                </h4>
+                <div class="right">
+                    <i class="fa-solid fa-coins icon--gold--left icon--gold"></i>
+                    <strong class="color-secondary"><%= user.coins %></strong>
+                </div>
             </div>
         <% }) %>         
     </div>
+    <div class="ranking-section">
+        <h3>Points</h3>
+        <% i = 0 %>
+        <% sortUsersByField(users,'points').forEach((user) => { %> 
+            <%  i = i + 1 %>
+            <div class="post card--small">
+                <h4>
+                    <% if(i === 1){ %>
+                        <i class="fa-solid fa-trophy icon--gold"></i>
+                    <% } else { %>
+                        <strong class="color-secondary"><%= i %>. </strong>
+                    <% } %>
+                    <img alt="avatar" class="avatar avi" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
+                    <%= user.username %>
+                </h4>
+                <div class="right">
+                    <strong class="color-secondary"><%= user.points %></strong>
+                    <strong> points</strong>
+                </div>
+            </div>
+        <% }) %>       
+    </div>
+</div>
 
-</main>
