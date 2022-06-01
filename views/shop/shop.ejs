@@ -13,7 +13,9 @@
                 <button disabled="true">Unlock</button>
             <% } else{ %> 
                 <h3><i class="fa-solid fa-coins"></i> <%= prices[i] %></h3>
-                <a href="/shop/<%= i %>" class="button-link">Unlock</a>
+                <form action="/shop/<%= i %>" method="POST">
+                    <button type="submit">Unlock</button>
+                </form>
             <% } %> 
         </div>
     <% } %> 

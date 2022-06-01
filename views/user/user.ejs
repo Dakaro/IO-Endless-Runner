@@ -12,10 +12,12 @@
             <div class="avi-card">
                 <img src="/avis/<%= skinIndex %>.gif" alt="avatar" class="avatar avi--big">
                 
-                <% if(userToRender.equippedSkin === skinIndex){ %>
+                <% if(userToRender === user && userToRender.equippedSkin === skinIndex){ %>
                     <button disabled="true">Equipped</button>
-                <% } else{ %>
-                    <a class="button-link">Equip</a>
+                <% } else if(userToRender === user){ %>
+                    <form action="/user/avi/<%= skinIndex %>" method="POST"> 
+                        <button type="submit">Equip</button>
+                    </form>
                 <% } %> 
             </div>
         <% }) %> 
