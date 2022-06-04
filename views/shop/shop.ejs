@@ -1,5 +1,7 @@
-<h1>Shop</h1>
-<p class="color-secondary">Your balance: <i class="fa-solid fa-coins icon--gold--left icon--gold"></i><strong><%= user.coins %></p>
+<div class="sticky-container-top">
+    <h1>Shop</h1>
+    <p class="color-secondary">Your balance: <i class="fa-solid fa-coins icon--gold--left icon--gold"></i><strong><%= user.coins %></p>
+</div>
 
 <div class="card-wrapper">
     <% for(var i = 1; i <= Object.keys(prices).length; ++i){ %> 
