@@ -1,0 +1,3 @@
+const onGameOver = (coins, distance) => {
+    
+}

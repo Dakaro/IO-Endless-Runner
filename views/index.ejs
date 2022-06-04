@@ -1,3 +1,7 @@
+<% let results = {coins: 10, distance: 20} %> 
 <main>
     Main page - add some info about the game
+    <form action="\game\<%= results.coins %>\<%= results.distance %>  " method="POST">
+        <button type="submit">Click to add points</button>
+    </form>
 </main>

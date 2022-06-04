@@ -18,6 +18,12 @@ const userSchema = new mongoose.Schema({
         default: Date.now
     },
     
+    lastSeen: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    
     coins: {
         type: Number,
         required: true,
