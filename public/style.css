@@ -526,3 +526,12 @@ button[disabled="true"],
     width: 1.5rem;
     height: 1.5rem;
 }
+
+iframe{
+    width: 800px;
+    height: 400px;
+    overflow: hidden;
+    outline: none;
+    border: 2px solid var(--primaryLight200);
+    border-radius: 1rem;
+}

@@ -1,7 +1,8 @@
 <% let results = {coins: 10, distance: 20} %> 
 <main>
-    Main page - add some info about the game
-    <form action="\game\<%= results.coins %>\<%= results.distance %>  " method="POST">
-        <button type="submit">Click to add points</button>
-    </form>
+    <div class="sticky-container-top">
+        <h1>Main page - add some info about the game</h1>
+    </div>
+    <iframe src="http://localhost:3000/game/dino.html" title="Embed"></iframe>
 </main>
+<script scr="/public/scripts/gameServerHandler.js"></script>

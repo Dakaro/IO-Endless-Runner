@@ -19,4 +19,8 @@ router.post('/:coins/:distance', authCheck.checkAuthenticated, async (req, res) 
     }
 })
 
+router.get('/', authCheck.checkAuthenticated, async (req, res) => { 
+    res.sendFile(__dirname, '..', 'public', 'scripts', 'embed.html')
+})
+
 module.exports = router

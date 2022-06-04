@@ -1,3 +1,4 @@
-const onGameOver = (coins, distance) => {
-    
+const onGameOver = (coins) => {
+    console.log(coins)
 }
+
