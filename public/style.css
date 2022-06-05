@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 @import url("font-awesome/css/fontawesome-all.min.css"); 
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 :root{
     --primary: #0A2239;
@@ -18,7 +19,7 @@
     --gold: #FB8B24;
     
     /* --fontRegular: 'Inter'; */
-    --fontRegular: 'Roboto';
+    --fontRegular: 'VT323', monospace; /*'Roboto';*/
 }
 
 html{
@@ -179,6 +180,15 @@ main{
     /* background: linear-gradient(0deg, var(--primaryLight) 0%, var(--primaryLight200) 100%); */
     box-shadow: 0px 0px 10px 2px var(--primaryDark);
     
+}
+
+.content-format{
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.title-format{
+    overflow: hidden;
 }
 
 .post .small{
@@ -525,4 +535,11 @@ button[disabled="true"],
 .card--small .avi{
     width: 1.5rem;
     height: 1.5rem;
+}
+
+.page-center {
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%,50%);
+    position: absolute;
 }

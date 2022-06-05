@@ -22,7 +22,8 @@ router.post('/', authCheck.checkAuthenticated, async (req, res) => {
     let post = new Post({
         title: req.body.title,
         content: req.body.content,
-        author: req.user
+        author: req.user,
+        authorUsername: req.user.username
 })
 try {
     post = await post.save()

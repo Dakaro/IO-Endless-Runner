@@ -1,4 +1,9 @@
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="../../client.js"></script>
+
 <h1>Forum</h1>
+
+
 <div class="posts-wrapper">
     <form action="/forum" method="POST">
         <div>
@@ -16,15 +21,16 @@
 <div class="posts-wrapper">
     <% posts.forEach((post) => { %> 
         <div class="post">
-            <img alt="avatar" class="avi avatar" src="/img/avatar_default_temp.png">
-            <span><%= post.author %></span>
+            <img alt="avatar" class="avatar" src="/img/avatar_default_temp.png">
+            <span><%= post.authorUsername %></span>
             <span class="color-secondary small"><%= post.date.toLocaleString() %></span>
-            <% if(post.title !== null) { %>
-                <h4><%= post.title %></h4>
+            <% if(post.title !== "") { %>
+                <h4><div class="title-format"><%= post.title %></div></h4>
             <% } else {%>
                 <h4>No title</h4>
             <% }%>
-            <p><%= post.content %></p>
+            <p>
+            <div class="content-format"><%= post.content %></div></p>
         </div>
     <% }) %>         
 </div>
