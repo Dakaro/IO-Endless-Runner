@@ -1,0 +1,10 @@
+<script>
+    const copyToClipboard = (id) => {
+        var cont = document.getElementById(id).textContent;
+        navigator.clipboard.writeText(cont).then(() => {
+            alert("e-mail address copied to clipboard")
+        },() => {
+            alert("clipboard API failed")
+    });
+    }
+</script>
