@@ -2,8 +2,23 @@
 <main>
     <div class="user-info">
         <img alt="avatar" class="avatar avi--big" src="/avis/<%= userToRender.equippedSkin ? userToRender.equippedSkin : 0 %>.gif">
-        <h1><%= userToRender.username %></h1>
-        <p class="color-secondary">Playing since <%= userToRender.joinDate.toLocaleDateString() %>, last seen DATE</p>
+        <h1 class="decorative big"><%= userToRender.username %></h1>
+        <p class="color-secondary">
+            Playing since <strong><%= userToRender.joinDate.toLocaleDateString() %></strong> |
+             Last seen <strong><%= userToRender.lastSeen.toLocaleDateString() %></strong>
+        </p>
+    </div>
+    
+    <div class="user-stats">
+        <div class="highlighted-color">
+            <h3><%= userToRender.coins %> </h3>
+            <p>Total Coins</p>
+        </div>
+        
+        <div class="highlighted-color">
+            <h3><%= userToRender.points %> </h3>
+            <p>Longest Distance</p>
+        </div>
     </div>
     
     <h2>Unlocked skins</h2>
