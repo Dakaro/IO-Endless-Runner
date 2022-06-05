@@ -1,17 +1,19 @@
 <%- include('functions.ejs')%>
-<main>
+<div class="sticky-container-top">
     <h1>Report error</h1>
-    <p class="small-width">If you came across an error on our website, you can report it by sending us an email
-        to the following address, or by filling out the form below.</p>
-    
-    <p class="highlighted" id="emailAddr"><%= email %></p>    
-    <p class="highlighted-copy" onclick="copyToClipboard('emailAddr')"><i class="fa-solid fa-copy"></i></p>
+</div>
+<p class="small-width">If you came across an error on our website, you can report it by sending us an email
+    to the following address, or by filling out the form below.</p>
 
-    <div class="small-width margin-top">
-        <form action="/report" method="POST">
-            <label for="errorReport">Description</label>
-            <textarea required type="text" name="errorReport" id="errorReport" placeholder="Start typing here..."></textarea>
-            <button type="submit">Send</button>
-        </form>
-    </div>
-</main>
+    <p class="highlighted" id="emailAddr"><%= email %></p>
+    <p class="highlighted-copy" onclick="copyToClipboard('emailAddr')" id="copy"><i class="fa-solid fa-copy"></i></p>
+    <p class="highlighted-copy-notif" id="notif">Copied to clipboard!</p>
+    
+<div class="small-width margin-top">
+    <form action="/report" method="POST">
+        <label for="errorReport">Description</label>
+        <textarea required type="text" name="errorReport" id="errorReport"
+            placeholder="Start typing here..."></textarea>
+        <button type="submit">Send</button>
+    </form>
+</div>

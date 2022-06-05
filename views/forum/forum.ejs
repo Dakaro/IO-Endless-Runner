@@ -18,16 +18,14 @@
 <div class="posts-wrapper">
     <% posts.forEach((post) => { %> 
         <div class="post">
-            <img alt="avatar" class="avatar" src="/img/avatar_default_temp.png">
-            <span><%= post.authorUsername %></span>
-            <span class="color-secondary small"><%= post.date.toLocaleString() %></span>
+            <span class="color-secondary">Posted by <strong><%= post.authorUsername %></strong></span>
+            <span class="color-secondary small post-date"><%= post.date.toLocaleString() %></span>
             <% if(post.title !== "") { %>
                 <h4><div class="title-format"><%= post.title %></div></h4>
             <% } else {%>
                 <h4>No title</h4>
             <% }%>
-            <p>
-            <div class="content-format"><%= post.content %></div></p>
+            <div class="content-format"><%= post.content %></div>
         </div>
     <% }) %>         
 </div>

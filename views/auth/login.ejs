@@ -1,16 +1,21 @@
-<h1>Game name</h1>
-<% if(messages.error) { %>
-    <%= messages.error %>
-<% } %>
-<form action="/" method="post">
-    <label for="username">Username</label>
-    <div>
-        <input name="username" placeholder="Username" type="text">
-    </div>
-    <label for="password">Password</label>
-    <div>
-        <input name="password" placeholder="Password" type="password">
-    </div>
-    <input type="submit" value="Login" class="button-link"></input>
-    <a href="/auth/register" class="button-link outline">Register</a>
-</form>
+<div class="auth">
+    <img class="enemy--small" src="/scripts/game/img/coin.gif">
+    <img class="enemy--small" src="/scripts/game/img/coin.gif">
+    <img class="enemy--small" src="/scripts/game/img/coin.gif">
+    <h1>Coin Hunter</h1>
+    <% if(messages.error) { %>
+        <%= messages.error %>
+        <% } %>
+        <form action="/" method="post">
+            <label for="username">Username</label>
+            <div>
+                <input name="username" placeholder="Username" type="text">
+            </div>
+            <label for="password">Password</label>
+            <div>
+                <input name="password" placeholder="Password" type="password">
+            </div>
+            <input type="submit" value="Login" class="button-link"></input>
+            <a href="/auth/register" class="button-link outline">Register</a>
+        </form>
+</div>

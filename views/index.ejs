@@ -1,8 +1,24 @@
-<% let results = {coins: 10, distance: 20} %> 
-<main>
-    <div class="sticky-container-top">
-        <h1 class="decorative big">Coin Hunter</h1>
-    </div>
-    <iframe src="http://localhost:3000/game/dino.html" title="Embed"></iframe>
-</main>
-<script scr="/public/scripts/gameServerHandler.js"></script>
+<div class="sticky-container-top">
+    <h1 class="decorative big">Coin Hunter</h1>
+</div>
+<iframe src="http://localhost:3000/game/dino.html" title="Embed"></iframe>
+
+<h3>Instructions</h3>
+<div class="game-instruction">
+    <i class="fa-solid fa-arrow-right"></i>
+    Click on the game window to start playing
+</div>
+<div class="game-instruction">
+    <i class="fa-solid fa-arrow-right"></i>
+    Press <code>space</code> to jump
+</div>
+<div class="game-instruction">
+    <i class="fa-solid fa-arrow-right"></i>
+    Collect <i class="fa-solid fa-coins icon--gold--left icon--gold"></i>coins to earn money and buy items in the shop
+</div>
+<div class="game-instruction">
+    <i class="fa-solid fa-arrow-right"></i>
+    Avoid the <img src="/img/enemy.gif" class="enemy--small"> enemies!
+</div>
+
+<p class="decorative--color">Good luck!</p>

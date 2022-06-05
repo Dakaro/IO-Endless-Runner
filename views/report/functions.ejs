@@ -1,10 +1,14 @@
 <script>
     const copyToClipboard = (id) => {
         var cont = document.getElementById(id).textContent;
+        var message = ''
+        
+        document.getElementById('notif').style.display = "block";
         navigator.clipboard.writeText(cont).then(() => {
-            alert("e-mail address copied to clipboard")
+            message = "Copied to clipboard!"
         },() => {
-            alert("clipboard API failed")
-    });
+            message = "Copy to clipboard failed"
+        });
+        document.getElementById('notif').appendChild(message)
     }
 </script>
