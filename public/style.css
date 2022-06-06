@@ -183,6 +183,20 @@ main{
     margin-top: 2rem;
 }
 
+.posts-wrapper a {
+    color: var(--secondary);
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.posts-wrapper a:hover{
+    color: var(--light);
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+}
+
 .posts-wrapper form{
     width: 55%;
     margin: 1rem;
@@ -251,6 +265,18 @@ h1{
     background-color: var(--primary);
     /* box-shadow: 0px 0px 10px 2px var(--primaryDark);
     border-bottom: 1px solid var(--primaryDark); */
+    box-sizing: border-box;
+}
+
+.forum-header{
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+}
+
+.sticky-container-top-forum{
+    top: 0;
+    position: sticky;
+    background-color: var(--primary);
     box-sizing: border-box;
 }
 
@@ -436,6 +462,7 @@ input{
     outline: 1px solid transparent;
     box-shadow: 0px 0px 10px 2px var(--primaryDark);
 }
+
 
 textarea{
     width: 100%;
@@ -675,3 +702,4 @@ code{
 .auth input{
     margin: 0.5rem auto;
 }
+

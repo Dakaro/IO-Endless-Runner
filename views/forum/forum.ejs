@@ -1,6 +1,8 @@
-<div class="sticky-container-top">
+<div class="forum-header">
     <h1>Forum</h1>
 </div>
+
+<div class="sticky-container-top-forum">
 <div class="posts-wrapper">
     <form action="/forum" method="POST">
         <div>
@@ -14,11 +16,12 @@
         <button type="submit">Post</button>
     </form>
 </div>
+</div>
 
 <div class="posts-wrapper">
     <% posts.forEach((post) => { %> 
         <div class="post">
-            <span class="color-secondary">Posted by <strong><%= post.authorUsername %></strong></span>
+            <span class="color-secondary">Posted by <strong></strong><a href="/user/<%= post.author %>"><%= post.authorUsername %></a></strong></span>
             <span class="color-secondary small post-date"><%= post.date.toLocaleString() %></span>
             <% if(post.title !== "") { %>
                 <h4><div class="title-format"><%= post.title %></div></h4>
