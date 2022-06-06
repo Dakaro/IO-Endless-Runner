@@ -13,9 +13,9 @@
                 <input name="username" placeholder="Username" type="text" maxlength="16">
             </div>
             <label for="password">Password</label>
-            <div >
-                <input class="peek-password" name="password" id="password" placeholder="Password" type="password">
-                <i class="fa-solid fa-eye" onclick="peekPassword('password')" style="cursor: pointer;"></i>
+            <div class="container--relative">
+                <input class="peek-password" name="password" id="password" placeholder="Password" type="password" class="password--peek">
+                <i class="fa-solid fa-eye password-peek" onclick="peekPassword('password')" style="cursor: pointer;"></i>
             </div>
             <input type="submit" value="Login" class="button-link"></input>
             <a href="/auth/register" class="button-link outline">Register</a>
