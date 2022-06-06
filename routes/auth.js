@@ -14,18 +14,15 @@ router.get('/register', authCheck.checkNotAuthenticated, (req, res) => {
 router.post('/register', authCheck.checkNotAuthenticated, async (req, res) => {
     const user = new User({
         username: req.body.username,
-        password: req.body.password,
-        //coins: 0,
-        //points: 0,
-        //posts: []
+        password: req.body.password
     })
     
     try {
         const newUser = await user.save()
         console.log(newUser)
-        res.redirect(`/`)
+        res.redirect('/')
     } catch {
-        res.render('/auth', {
+        res.render('auth', {
             user: {
                 username: req.body.username,
                 password: req.body.password
