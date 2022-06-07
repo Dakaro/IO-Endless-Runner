@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-@import url("font-awesome/css/fontawesome-all.min.css"); 
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 :root{
     --primary: #0A2239;
@@ -15,10 +15,12 @@
     --secondary: #A0CFCD;
     --tertiary: #F97B77;
     --tertiaryDark: #F8544F;
+    --tertiaryLight: hsl(2, 92%, 80%);
     --gold: #FB8B24;
     
     /* --fontRegular: 'Inter'; */
     --fontRegular: 'Roboto';
+    --fontDecorative: 'VT323';
 }
 
 html{
@@ -49,9 +51,25 @@ nav{
     padding: 1.25rem;
 }
 
+nav > a{
+    color: var(--secondary);
+    margin: 2rem 0 0 1.5rem;
+    text-decoration: none;
+    display: inline-block;
+    font-family: var(--fontDecorative);
+    font-size: 2rem;
+    border-bottom: 1px solid transparent;
+    transition: all 0.5s;
+}
+
+nav > a:hover{
+    border-bottom: 1px solid var(--secondary);
+}
+
 nav ul{
     list-style: none;
     padding: 0;
+    text-align: left;
 }
 
 nav ul li a{
@@ -65,7 +83,8 @@ nav ul li a{
     padding: 0.75rem 1.5rem;
     margin: 0.5rem 0;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.5s;
+    border: 1px solid transparent;
     border-radius: 1rem;
 }
 
@@ -96,6 +115,7 @@ nav .user-nav{
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    text-align: left;
 }
 
 .avatar{
@@ -108,6 +128,7 @@ nav ul li a.selected,
 nav ul li a:hover{
     background-color: var(--primaryLight);
     color: var(--tertiary);
+    border: 1px solid var(--primaryLight300);
 }
 
 nav button{
@@ -137,8 +158,22 @@ main{
     margin-top: 3rem;
 }
 
+.user-info p {
+    margin: 0;
+    margin-top: 0.5rem;
+}
+
 .user-stats{
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 4rem;
+}
+
+.user-stats div{
+    flex: 1;
 }
 
 .posts-wrapper{
@@ -146,6 +181,20 @@ main{
     flex-direction: column;
     align-items: center;
     margin-top: 2rem;
+}
+
+.posts-wrapper a {
+    color: var(--secondary);
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.posts-wrapper a:hover{
+    color: var(--light);
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
 }
 
 .posts-wrapper form{
@@ -170,8 +219,8 @@ main{
 .post{
     background-color: var(--primaryLight);
     border-radius: 1rem;
-    padding: 2rem;
-    margin: 1rem;
+    padding: 1.75rem;
+    margin: 0.5rem;
     width: 55%;
     box-sizing: border-box;
     text-align: left;
@@ -181,14 +230,17 @@ main{
     
 }
 
-.post .small{
-    display: inline;
-    margin-left: 1rem;
+.post-date{
+    float: right;
 }
 
-.post .small::before{
-    content: '|';
-    margin: 0.5rem;
+.content-format{
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.title-format{
+    overflow: hidden;
 }
 
 .create-post{
@@ -199,9 +251,10 @@ main{
 /* Typography */
 
 h1{
-    font-weight: 900;
-    font-size: 2.7rem;
+    font-size: 4rem;
     margin-top: 0;
+    font-family: var(--fontDecorative);
+    font-weight: 400;
 }
 
 .sticky-container-top{
@@ -215,10 +268,28 @@ h1{
     box-sizing: border-box;
 }
 
-.user-info h1{
-    margin: 0.5rem;
+.forum-header{
+    padding-top: 4rem;
+    padding-bottom: 1rem;
 }
 
+.sticky-container-top-forum{
+    top: 0;
+    position: sticky;
+    background-color: var(--primary);
+    box-sizing: border-box;
+}
+
+.user-info h1{
+    margin: 0;
+    margin-top: 1rem;
+}
+
+.decorative--color {
+    font-family: var(--fontDecorative);
+    font-size: 1.5rem;
+    color: var(--tertiary);
+}
 
 h3 {
     font-size: 1.5rem;
@@ -252,14 +323,37 @@ h4{
 
 .highlighted{
     background-color: var(--primaryLight);
-    margin: 2rem;
-    margin-right: 1rem;
     padding: 1rem 2.5rem;
     border-radius: 1rem;
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: 800;
     display: inline-block;
     color: var(--tertiary);
+    border: 1px solid var(--primaryLight300);
+    box-shadow: 0px 0px 10px 2px var(--primaryDark);
+}
+
+.highlighted-color{
+    background-color: var(--primaryLight300);
+    padding: 1.5rem;
+    margin: 0 0.5rem;
+    border-radius: 1rem;
+    display: inline-block;
+    color: var(--light);
+    border: 1px solid var(--primaryLight300);
+    box-shadow: 0px 0px 10px 2px var(--primaryDark);
+}
+
+.highlighted-color h3{
+    margin: 0;
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+
+.highlighted-color p{
+    margin: 0;
+    font-weight: 800;
+    color: var(--secondary);
 }
 
 .highlighted-copy{
@@ -268,11 +362,36 @@ h4{
     color: var(--primaryLight300);
     cursor: pointer;
     transition: all 0.5s;
+    margin-left: 1rem;
 }
 
 .highlighted-copy:hover{
     color: var(--secondary);
 }
+
+.highlighted-copy-notif{
+    display: none;
+    position: relative;
+    background-color: var(--primaryLight400);
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    color: var(--light);
+    padding: 0.5rem 1rem;
+    width: 10rem;
+    margin: 0 auto;
+    animation-name: FadeIn;
+    animation-duration: 0.5s;
+    transition-timing-function: linear;
+}
+
+@keyframes FadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 
 .small-width{
     width: 40%;
@@ -295,7 +414,7 @@ button,
 .button-link{
     outline: none;
     text-decoration: none;
-    border: 2px solid var(--tertiary);
+    border: 1px solid var(--tertiaryLight);
     background-color: var(--tertiary);
     color: var(--light);
     padding: 0.65rem 2.5rem;
@@ -309,6 +428,7 @@ button,
     width: 10rem;
     text-align: center;
     box-sizing: border-box;
+    box-shadow: 0px 0px 5px 1px var(--primaryDark);
 }
 
 button:hover,
@@ -333,22 +453,24 @@ button:hover,
 
 input{
     background-color: var(--primaryLight);
-    outline: none;
-    border: 3px solid transparent;
     padding: 0.75rem 1.25rem;
     border-radius: 1rem;
     color: var(--light);
     transition: all 0.35s;
     font-family: var(--fontRegular);
+    border: 1px solid var(--primaryLight300);
+    outline: 1px solid transparent;
+    box-shadow: 0px 0px 10px 2px var(--primaryDark);
+    width: 14rem;
+    box-sizing: border-box;
 }
+
 
 textarea{
     width: 100%;
     height: 8rem;
     margin: 1rem 0rem;
     background-color: var(--primaryLight);
-    outline: none;
-    border: 3px solid transparent;
     padding: 1rem 1.25rem;
     border-radius: 1rem;
     color: var(--secondary);
@@ -356,11 +478,14 @@ textarea{
     font-family: var(--fontRegular);
     box-sizing: border-box;
     transition: all 0.35s;
+    border: 1px solid var(--primaryLight300);
+    outline: 1px solid transparent;
+    box-shadow: 0px 0px 10px 2px var(--primaryDark);
 }
 
 textarea:focus,
 input:focus{
-    border: 3px solid var(--primaryLight200);
+    outline: 1px solid var(--primaryLight300);
 }
 
 label {
@@ -471,9 +596,15 @@ label {
 }
 
 .avi-card i,
-.icon--gold{
+.icon--gold,
+.game-instruction .icon--gold{
     color: var(--gold);
     margin-right: 0.5rem;
+}
+
+.enemy--small{
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .icon--gold--left{
@@ -525,4 +656,75 @@ button[disabled="true"],
 .card--small .avi{
     width: 1.5rem;
     height: 1.5rem;
+}
+
+.page-center {
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%,50%);
+    position: absolute;
+}
+
+iframe{
+    width: 800px;
+    height: 400px;
+    overflow: hidden;
+    outline: none;
+    border: 2px solid var(--primaryLight200);
+    border-radius: 1rem;
+    box-shadow: 0px 0px 10px 2px var(--primaryDark);
+}
+
+.game-instruction i {
+    margin-right: 0.5rem;
+    color: var(--tertiary);
+}
+
+.game-instruction {
+    color: var(--secondary);
+    margin: 1.5rem;
+}
+
+code{
+    font-size: 1rem;
+    background-color: var(--primaryLight);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--primaryLight300);
+    margin: 0.25rem;
+}
+
+.auth{
+    margin: 10% auto;
+}
+
+.auth h1{
+    margin: 1rem;
+}
+
+.auth input{
+    margin: 0.5rem auto;
+}
+
+.container--relative{
+    position: relative;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input.password--peek{
+    padding-right: 3rem;
+}
+
+.password-peek{
+    color: var(--primaryLight400);
+    position: absolute;
+    top: 1.25rem;
+    right: 0.75rem;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.password-peek:hover{
+    color: var(--secondary);
 }

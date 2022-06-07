@@ -1,14 +1,17 @@
-<main>
+<%- include('functions.ejs') %>
+<div class="auth">
     <h1>Register</h1>
     <form action="/auth/register" method="POST">
         <label for="username">Username</label>
         <div>
-            <input name="username" placeholder="Username" type="text" required>
+            <input name="username" placeholder="Username" type="text" maxlength="16" required>
         </div>
         <label for="password">Password</label>
-        <div>
-            <input name="password" placeholder="Password" type="password" required>
+        <div class="container--relative">
+            <input name="password" id="password" placeholder="Password" type="password" class="password--peek" required>
+            <i class="fa-solid fa-eye password-peek" onclick="peekPassword('password')" style="cursor: pointer;"></i>
         </div>
         <button type="submit" value="Submit">Register</button>
+        <%= errorMessage %> 
     </form>
-</main>
+</div>

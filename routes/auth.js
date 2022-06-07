@@ -8,28 +8,23 @@ router.get('/', authCheck.checkNotAuthenticated, (req, res) => {
 })
 
 router.get('/register', authCheck.checkNotAuthenticated, (req, res) => {
-    res.render('auth/register')
+    res.render('auth/register', {
+        errorMessage: null
+    })
 })
 
 router.post('/register', authCheck.checkNotAuthenticated, async (req, res) => {
     const user = new User({
         username: req.body.username,
-        password: req.body.password,
-        //coins: 0,
-        //points: 0,
-        //posts: []
+        password: req.body.password
     })
     
     try {
         const newUser = await user.save()
         console.log(newUser)
-        res.redirect(`/`)
+        res.redirect('/')
     } catch {
-        res.render('/auth', {
-            user: {
-                username: req.body.username,
-                password: req.body.password
-            },
+        res.render('auth/register', {
             errorMessage: 'Error registering new user'
         })
     }

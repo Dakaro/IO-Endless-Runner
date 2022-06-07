@@ -1,4 +1,8 @@
-<h1>Forum</h1>
+<div class="forum-header">
+    <h1>Forum</h1>
+</div>
+
+<div class="sticky-container-top-forum">
 <div class="posts-wrapper">
     <form action="/forum" method="POST">
         <div>
@@ -12,19 +16,19 @@
         <button type="submit">Post</button>
     </form>
 </div>
+</div>
 
 <div class="posts-wrapper">
     <% posts.forEach((post) => { %> 
         <div class="post">
-            <img alt="avatar" class="avi avatar" src="/img/avatar_default_temp.png">
-            <span><%= post.author %></span>
-            <span class="color-secondary small"><%= post.date.toLocaleString() %></span>
-            <% if(post.title !== null) { %>
-                <h4><%= post.title %></h4>
+            <span class="color-secondary">Posted by <strong></strong><a href="/user/<%= post.author %>"><%= post.authorUsername %></a></strong></span>
+            <span class="color-secondary small post-date"><%= post.date.toLocaleString() %></span>
+            <% if(post.title !== "") { %>
+                <h4><div class="title-format"><%= post.title %></div></h4>
             <% } else {%>
                 <h4>No title</h4>
             <% }%>
-            <p><%= post.content %></p>
+            <div class="content-format"><%= post.content %></div>
         </div>
     <% }) %>         
 </div>

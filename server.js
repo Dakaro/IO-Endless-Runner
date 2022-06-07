@@ -18,6 +18,7 @@ const forumRouter = require('./routes/forum.js')
 const rankingRouter = require('./routes/ranking')
 const catalogRouter = require('./routes/catalog')
 const shopRouter = require('./routes/shop')
+const gameRouter = require('./routes/game')
 
 const app = express()
 const initializePassport = require('./passport-config')
@@ -39,6 +40,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
+app.use(express.static('public/scripts'))
 
 app.use('/', indexRouter)
 app.use('/user', userRouter)
@@ -48,6 +50,7 @@ app.use('/forum', forumRouter)
 app.use('/ranking', rankingRouter)
 app.use('/catalog', catalogRouter)
 app.use('/shop', shopRouter)
+app.use('/game', gameRouter)
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 const db = mongoose.connection
