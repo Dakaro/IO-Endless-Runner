@@ -17,6 +17,12 @@ router.get('/', utils.checkAuthenticated, async (req, res) => {
     }
 })
 
+router.get('/rules', utils.checkAuthenticated, async (req, res) => {
+    res.render('forum/rules', {
+        user: req.user
+    })
+})
+
 //create post route 
 router.post('/', utils.checkAuthenticated, async (req, res) => {
     let post = new Post({

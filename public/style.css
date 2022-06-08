@@ -357,13 +357,18 @@ h4{
     margin: 1rem 0 0 0;
 }
 
-.post a {
+.post a,
+.link--styled {
+    text-decoration: none;
+    color: var(--secondary);
     font-weight: 600;
     transition: all 0.5s;
     border-bottom: 1px solid transparent;
 }
 
-.post a:hover{
+.post a:hover,
+.link--styled:hover{
+    color: var(--light);
     border-bottom: 1px solid var(--secondary);
 }
 
