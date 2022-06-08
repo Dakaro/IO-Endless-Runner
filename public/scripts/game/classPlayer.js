@@ -7,6 +7,7 @@ class Player {
   control() {
     document.body.onkeydown = function (e) {
       if (e.keyCode == 32 || e.keyCode == 38) {
+        e.preventDefault()
         if (!playerEl.classList.contains("goJump")) {
           playerEl.classList.add("goJump");
           setTimeout(function () {
