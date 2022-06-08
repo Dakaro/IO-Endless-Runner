@@ -1,16 +1,3 @@
-<% 
-    const fieldCompare = (a, b, field) => {
-        if(a[field] < b[field]) return 1
-        if(a[field] > b[field]) return -1
-        return 0    
-    }
-    
-    const sortUsersByField = (users, field) => {
-        users.sort((a, b) => fieldCompare(a, b, field))
-        return users
-    }
-%> 
-
 <div class="sticky-container-top">
     <h1>Top 10</h1>
 </div>
@@ -18,7 +5,7 @@
     <div class="ranking-section">
         <h3>Coins</h3>
         <% let i = 0 %>
-        <% sortUsersByField(users, 'coins').forEach((user) => { %> 
+        <% topCoins.forEach((user) => { %> 
             <%  i = i + 1 %>
             <div class="post card--small">
                 <h4>
@@ -28,7 +15,7 @@
                         <strong class="color-secondary"><%= i %>. </strong>
                     <% } %>
                     <img alt="avatar" class="avatar avi" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
-                    <%= user.username %>
+                    <a href="/user/<%= user.username %>"><%= user.username %></a>
                 </h4>
                 <div class="right">
                     <i class="fa-solid fa-coins icon--gold--left icon--gold"></i>
@@ -40,7 +27,7 @@
     <div class="ranking-section">
         <h3>Points</h3>
         <% i = 0 %>
-        <% sortUsersByField(users,'points').forEach((user) => { %> 
+        <% topPoints.forEach((user) => { %> 
             <%  i = i + 1 %>
             <div class="post card--small">
                 <h4>
@@ -50,7 +37,7 @@
                         <strong class="color-secondary"><%= i %>. </strong>
                     <% } %>
                     <img alt="avatar" class="avatar avi" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
-                    <%= user.username %>
+                    <a href="/user/<%= user.username %>"><%= user.username %></a>
                 </h4>
                 <div class="right">
                     <strong class="color-secondary"><%= user.points %></strong>

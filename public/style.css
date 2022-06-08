@@ -688,6 +688,20 @@ button[disabled="true"],
     margin: 0.5rem;
 }
 
+.ranking-section a:hover{
+    color: var(--light);
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.ranking-section a {
+    color: var(--secondary);
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+}
+
 .card--small{
     width: 100%;
     box-sizing: border-box;

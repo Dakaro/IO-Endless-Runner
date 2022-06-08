@@ -6,9 +6,11 @@ const User = require("../models/user")
 
 router.get('/', utils.checkAuthenticated, async (req, res) => {
     try {
-        let top10 = await User.find({}).sort({points: -1, username: 1}).limit(10)
+        let topCoins = await User.find({}).sort({points: -1, username: 1}).limit(10)
+        let topPoints= await User.find({}).sort({coins: -1, username: 1}).limit(10)
         res.render('ranking/ranking', {
-            users: top10,
+            topCoins: topCoins,
+            topPoints: topPoints,
             user: req.user
         })
     } catch {
