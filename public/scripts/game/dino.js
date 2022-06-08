@@ -29,11 +29,6 @@ class Game {
     this.distance = 0;
   }
   
-  rerenderSidenav(){
-    var coinValueSpan = document.getElementById("user-nav-coins")
-    console.log(coinValueSpan)
-  }
-  
   // post request with coins and points update after game over
   // updates sidenav coin value
   sendResultToDb(coins, distance) {
