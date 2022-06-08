@@ -153,8 +153,8 @@
 
 .hearth {
   margin: 0 3px;
-  width: 45px;
-  height: 40px;
+  width: 40px;
+  height: 36px;
   background-image: url("./img/hearth.png");
   background-size: cover;
 }
