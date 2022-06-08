@@ -46,14 +46,15 @@ body{
 
 nav{
     /* height: 100%; */
-    flex-basis: 10%;
+    flex-basis: 15%;
     background-color: var(--primaryDark);
-    padding: 1.25rem;
+    padding: 1.25rem 1rem 1.25rem 1.5rem;
+    box-sizing: border-box;
 }
 
 nav > a{
     color: var(--secondary);
-    margin: 2rem 0 0 1.5rem;
+    margin: 2rem 0 0 0.5rem;
     text-decoration: none;
     display: inline-block;
     font-family: var(--fontDecorative);
@@ -80,7 +81,7 @@ nav ul li a{
     box-sizing: border-box;
     display: block;
     text-decoration: none;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 1rem;
     margin: 0.5rem 0;
     cursor: pointer;
     transition: all 0.5s;
@@ -106,16 +107,26 @@ nav h5{
 }
 
 nav img{
-    width: 3.5rem;
     height: 3.5rem;
+    width: 3.5rem;
+    transition: all 0.5s;
+}
+
+nav img:hover{
+    box-shadow: 0px 0px 5px 1px var(--secondary);
 }
 
 nav .user-nav{
-    margin: 3rem 1.25rem;
+    margin: 3rem 0.5rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     text-align: left;
+    margin-right: 0;
+}
+
+.user-nav h5{
+    margin-right: 0;
 }
 
 .avatar{
@@ -133,7 +144,6 @@ nav ul li a:hover{
 
 nav button{
     background: none;
-    padding: 1rem;
     padding: 0.75rem 1.5rem;
     margin: 1rem 0;
     width: 100%;
@@ -144,9 +154,10 @@ nav button{
 /* Content area */
 
 main{
-    flex-basis: 90%;
+    flex-basis: 85%;
     text-align: center;
     overflow-y: auto;
+    padding: 0 0.5rem 1rem 0.5rem;
 }
 
 .user-info{
@@ -259,13 +270,17 @@ h1{
 
 .sticky-container-top{
     top: 0;
-    padding-top: 4rem;
+    padding-top: 3rem;
     padding-bottom: 1rem;
     position: sticky;
     background-color: var(--primary);
     /* box-shadow: 0px 0px 10px 2px var(--primaryDark);
     border-bottom: 1px solid var(--primaryDark); */
     box-sizing: border-box;
+}
+
+.sticky-container-top h1{
+    margin-bottom: 0;
 }
 
 .forum-header{
@@ -294,7 +309,7 @@ h1{
 h3 {
     font-size: 1.5rem;
     font-weight: 900;
-    margin-top: 6rem;
+    margin-top: 3rem;
     margin-bottom: 0.5rem;
 }
 
@@ -425,7 +440,7 @@ button,
     transition: all 0.5s;
     display: block;
     margin: 1rem auto;
-    width: 10rem;
+    width: 9rem;
     text-align: center;
     box-sizing: border-box;
     box-shadow: 0px 0px 5px 1px var(--primaryDark);
@@ -673,6 +688,7 @@ iframe{
     border: 2px solid var(--primaryLight200);
     border-radius: 1rem;
     box-shadow: 0px 0px 10px 2px var(--primaryDark);
+    margin-top: 3rem;
 }
 
 .game-instruction i {
@@ -727,4 +743,54 @@ input.password--peek{
 
 .password-peek:hover{
     color: var(--secondary);
+}
+
+@media only screen and (min-width: 2000px) {
+    nav {
+      flex-basis: 10%;
+    }
+    
+    main {
+        flex-basis: 90%;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    nav {
+        position: relative;
+        flex-basis: 5%;
+        padding: 1.25rem 1rem 1.25rem 1rem;
+    }
+    
+    .user-nav-info{
+        display: none;
+    }
+    
+    nav a {
+        font-size: 1rem;
+    }
+    
+    nav img {
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    nav ul li button{
+        padding: 0.75rem 1rem;
+        text-align: center;
+        width: auto;
+    }
+    
+    nav ul li a > *:not(i),
+    nav ul li button > *:not(i) {
+        display: none;
+    }
+    
+    nav ul li i {
+        margin: 0;
+    }
+    
+    main {
+        flex-basis: 95%;
+    }
 }
