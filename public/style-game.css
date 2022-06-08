@@ -68,7 +68,7 @@
   border: #4caf50 1px solid;
   margin: 0 auto;
   position: relative;
-  background-image: url("./img/bg.gif");
+  background-image: url("./scripts/game/img/bg.gif");
   font-family: "VT323", monospace;
 
   background-position: center;
@@ -95,7 +95,7 @@
   left: 20px;
   width: 70px;
   height: 100px;
-  background-image: url("./img/dino.gif");
+  background-image: url("./scripts/game/img/dino.gif");
 
   background-position: center;
   background-repeat: no-repeat;
@@ -108,7 +108,7 @@
 }
 
 .goDown {
-  background-image: url("./img/lay.png") !important;
+  background-image: url("./scripts/game/img/lay.png") !important;
   width: 300px !important;
   height: 50px !important;
 }
@@ -122,7 +122,7 @@
   height: 50px;
   animation: moveEnemy 2000ms;
   animation-timing-function: linear;
-  background-image: url("./img/enemy.gif");
+  background-image: url("./scripts/game/img/enemy.gif");
   background-size: cover;
 }
 
@@ -155,7 +155,7 @@
   margin: 0 3px;
   width: 45px;
   height: 40px;
-  background-image: url("./img/hearth.png");
+  background-image: url("./scripts/game/img/hearth.png");
   background-size: cover;
 }
 
@@ -163,7 +163,7 @@
   position: absolute;
   right: 20px;
   top: 70px;
-  background-image: url("./img/coin.gif");
+  background-image: url("./scripts/game/img/coin.gif");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -180,7 +180,7 @@
   height: 50px;
   animation: moveCoin 3400ms;
   animation-timing-function: linear;
-  background-image: url("./img/coin.gif");
+  background-image: url("./scripts/game/img/coin.gif");
   background-size: cover;
 }
 

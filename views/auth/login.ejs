@@ -5,7 +5,7 @@
     <img class="enemy--small" src="/scripts/game/img/coin.gif">
     <h1>Coin Hunter</h1>
     <% if(messages.error) { %>
-        <%= messages.error %>
+        <p class="error-msg"><i class="fa-solid fa-circle-exclamation"></i><%= messages.error %></p>
         <% } %>
         <form action="/" method="post">
             <label for="username">Username</label>

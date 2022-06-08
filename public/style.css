@@ -734,7 +734,7 @@ button[disabled="true"],
     padding: 0.25rem;
 }
 
-iframe{
+.game-container{
     width: 800px;
     height: 400px;
     overflow: hidden;
@@ -742,7 +742,7 @@ iframe{
     border: 2px solid var(--primaryLight200);
     border-radius: 1rem;
     box-shadow: 0px 0px 10px 2px var(--primaryDark);
-    margin-top: 3rem;
+    margin: 3rem auto 0 auto;
 }
 
 .color-tertiary{
@@ -801,6 +801,20 @@ input.password--peek{
 
 .password-peek:hover{
     color: var(--secondary);
+}
+
+.error-msg{
+    border: 1px solid var(--tertiary);
+    width: 12rem;
+    padding: 0.75rem 1.5rem;
+    margin: 1rem auto;
+    font-weight: 600;
+    border-radius: 1rem;
+}
+
+.error-msg i{
+    margin-right: 0.5rem;
+    color: var(--tertiary);
 }
 
 @media only screen and (min-width: 2000px) {

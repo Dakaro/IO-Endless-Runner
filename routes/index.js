@@ -5,9 +5,6 @@ const utils = require('../utils')
 const User = require("../models/user")
 // const testFunctions = require("/public/scripts/gameServerHandler.js")
 
-router.get('/get', (req, res) => {
-    res.send('this works here too')
-})
 
 router.get('/', utils.checkAuthenticated, (req, res) => {
     res.render('index', {user: req.user})
