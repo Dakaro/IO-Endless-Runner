@@ -2,6 +2,22 @@ class Game {
   constructor() {
     this.distance = 0;
   }
+  
+  // post request with coins and points update after game over
+  // updates sidenav coin value
+  sendResultToDb(coins, distance) {
+    let xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        var coinValueSpan = document.getElementById("user-nav-coins")
+        var resJson = JSON.parse(xhr.response)
+        coinValueSpan.textContent = resJson.points
+      }
+    }
+    xhr.open("POST", `/game/${coins}/${distance}`)
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(null);
+  }
 
   countDistance() {
     let this2 = this;
@@ -110,5 +126,6 @@ class Game {
       `Final distance: ${finalDistance}m` +
       "<br />" +
       `Collected coins: ${finalScore}`;
+    this.sendResultToDb(finalScore, finalDistance)
   }
 }

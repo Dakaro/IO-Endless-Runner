@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
-body {
+/* body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   background-color: rgb(0, 45, 56);
   font-family: "VT323", monospace;
-}
+} */
 
 .countdown {
   position: absolute;
@@ -66,10 +66,11 @@ body {
 #container {
   width: 800px;
   height: 400px;
-  border: #4caf50 1px solid;
-  margin: 50px auto;
+  /* border: #4caf50 1px solid; */
+  margin: 0;
   position: relative;
   background-image: url("./img/bg.gif");
+  font-family: "VT323", monospace;
 
   background-position: center;
   background-repeat: no-repeat;
