@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
-const authCheck = require('../authCheck')
+const utils = require('../utils')
 const bcrypt = require('bcrypt')
 
 router.get('/', utils.checkNotAuthenticated, (req, res) => {
@@ -14,7 +14,7 @@ router.get('/register', utils.checkNotAuthenticated, (req, res) => {
     })
 })
 
-router.post('/register', authCheck.checkNotAuthenticated, async (req, res) => {   
+router.post('/register', utils.checkNotAuthenticated, async (req, res) => {   
     try {
         const hashpassword = await bcrypt.hash(req.body.password, 10)
         const user = new User({
