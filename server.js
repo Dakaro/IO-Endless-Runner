@@ -42,6 +42,13 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 app.use(express.static('public/scripts'))
 
+// No caching so that sensitive information is not accessible by pressing the
+// back button after logout
+app.use(function (req, res, next) {
+    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    next();
+});
+
 app.use('/', indexRouter)
 app.use('/user', userRouter)
 app.use('/report', reportRouter)
