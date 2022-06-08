@@ -24,13 +24,12 @@ router.post('/register', utils.checkNotAuthenticated, async (req, res) => {
         const newUser = await user.save()
         console.log(newUser)
         res.redirect('/')
-    } catch {
-        res.render('auth', {
-            user: {
-                username: req.body.username,
-                password: hashpassword  //req.body.password
-            },
-            errorMessage: 'Error registering new user'
+    } catch(err) {
+        var message = 'Error registering new user'
+        if(err.code === 11000) message = "Username is already taken"
+        res.render('auth/register', {
+            username: req.body.username,
+            errorMessage: message
         })
     }
 })
