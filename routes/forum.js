@@ -1,9 +1,9 @@
 const express = require('express')
+const server = express()
 const router = express.Router()
 const utils = require('../utils')
 const Post = require('../models/post.js')
 const User = require("../models/user")
-
 
 router.get('/', utils.checkAuthenticated, async (req, res) => {
     try {

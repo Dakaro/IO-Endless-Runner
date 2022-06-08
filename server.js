@@ -8,6 +8,8 @@ const Post = require('./models/post')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+//const socket = require("socket.io");
+const bcrypt = require('bcrypt')
 
 const indexRouter = require('./routes/index.js')
 const userRouter = require('./routes/user.js')
@@ -21,6 +23,7 @@ const shopRouter = require('./routes/shop')
 const gameRouter = require('./routes/game')
 
 const app = express()
+
 const initializePassport = require('./passport-config')
 initializePassport(passport)
 
@@ -66,7 +69,8 @@ db.once('open', () => console.log('Connected to database'))
 
 
 const port = 3000
-app.listen(process.env.PORT || port, () => console.log(`Server running on port ${port}`))
+
+const server = app.listen(process.env.PORT || port, () => console.log(`Server running on port ${port}`))
 
 
 module.exports = app

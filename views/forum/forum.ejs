@@ -21,7 +21,7 @@
 <div class="posts-wrapper">
     <% posts.forEach((post) => { %> 
         <div class="post">
-            <span class="color-secondary">Posted by <strong></strong><a href="/user/<%= post.author %>"><%= post.authorUsername %></a></strong></span>
+            <span class="color-secondary">Posted by <strong><a href="/user/<%= post.author %>"><%= post.authorUsername %></a></strong></span>
             <span class="color-secondary small post-date"><%= post.date.toLocaleString() %></span>
             <% if(post.title !== "") { %>
                 <h4><div class="title-format"><%= post.title %></div></h4>

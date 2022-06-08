@@ -1,14 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
-/* body {
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   background-color: rgb(0, 45, 56);
-  width: 800px;
-  height: 400px;
-  overflow: hidden;
-} */
+  font-family: "VT323", monospace;
+}
 
 .countdown {
   position: absolute;
@@ -21,9 +19,10 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   transition: all 0.2s;
+  z-index: 10000;
 }
 
-.over {
+.gameOver {
   position: absolute;
   width: 100%;
   font-size: 60px;
@@ -35,20 +34,22 @@
   transform: translateY(-50%);
   transition: all 0.2s;
   display: none;
+  z-index: 10000;
 }
 
 .playAgain {
   position: absolute;
-  font-size: 32px;
+  font-size: 36px;
   color: black;
   padding: 10px;
   border-radius: 10px;
   background-color: white;
   text-align: center;
-  left: 36%;
+  left: 39%;
   bottom: 20%;
   transition: all 0.2s;
   display: none;
+  z-index: 10000;
 }
 
 .playAgain:hover {
@@ -66,15 +67,13 @@
   width: 800px;
   height: 400px;
   border: #4caf50 1px solid;
-  margin: 0 auto;
+  margin: 50px auto;
   position: relative;
   background-image: url("./img/bg.gif");
-  font-family: "VT323", monospace;
 
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  box-sizing: border-box;
 }
 
 .hit {
@@ -104,7 +103,7 @@
 
 .goJump {
   animation-name: jump;
-  animation-duration: 700ms;
+  animation-duration: 600ms;
 }
 
 .goDown {
@@ -184,6 +183,26 @@
   background-size: cover;
 }
 
+.goCoinHit {
+  animation-name: coinHit;
+  animation-duration: 200ms;
+}
+
+@keyframes coinHit {
+  0% {
+    top: 70px;
+    transform: scale(1);
+  }
+  50% {
+    top: 60px;
+    transform: scale(1);
+  }
+  100% {
+    top: 70px;
+    transform: scale(1);
+  }
+}
+
 @keyframes jump {
   0% {
     bottom: 40px;
@@ -229,7 +248,7 @@
     filter: brightness(1);
   }
   50% {
-    filter: brightness(1.2);
+    filter: brightness(2);
   }
   100% {
     filter: brightness(1);
