@@ -15,7 +15,7 @@
                         <strong class="color-secondary"><%= i %>. </strong>
                     <% } %>
                     <img alt="avatar" class="avatar avi" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
-                    <a href="/user/<%= user.username %>"><%= user.username %></a>
+                    <a href="/user/<%= user.id %>"><%= user.username %></a>
                 </h4>
                 <div class="right">
                     <i class="fa-solid fa-coins icon--gold--left icon--gold"></i>
@@ -37,7 +37,7 @@
                         <strong class="color-secondary"><%= i %>. </strong>
                     <% } %>
                     <img alt="avatar" class="avatar avi" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
-                    <a href="/user/<%= user.username %>"><%= user.username %></a>
+                    <a href="/user/<%= user.id %>"><%= user.username %></a>
                 </h4>
                 <div class="right">
                     <strong class="color-secondary"><%= user.points %></strong>

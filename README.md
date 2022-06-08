@@ -16,6 +16,8 @@ Available at **https://io-coin-hunter.herokuapp.com/**
 * Express
 * Mongoose
 * Passport
+* Bcrypt
+* Nodemailer
 
 
 ## Run Locally
