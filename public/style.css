@@ -367,6 +367,10 @@ h4{
     border-bottom: 1px solid var(--secondary);
 }
 
+.color-light{
+    color: var(--light);
+}
+
 
 .color-secondary{
     color: var(--secondary);
@@ -635,6 +639,8 @@ label {
     height: 10rem;
 }
 
+
+
 .avi-card{
     flex-basis: 10%;
     margin: 1rem;
@@ -712,14 +718,23 @@ button[disabled="true"],
     align-items: center;
 }
 
+.ranking{
+    display: flex;
+    align-items: center;
+}
+
+.no-marg{
+    margin: 0;
+}
+
 .card--small h4{
     display: inline-block;
     margin: 0.5rem;
 }
 
 .card--small .avi{
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
 }
 
 .page-center {
@@ -829,6 +844,15 @@ input.password--peek{
 .error-msg i{
     margin-right: 0.5rem;
     color: var(--tertiary);
+}
+
+.card--small .avi--ranking{
+    margin-left: 0.5rem;
+    margin-right: 0.75rem;
+}
+
+.card--small:first-of-type .avi--ranking{
+    margin-left: 0.2rem;
 }
 
 @media only screen and (min-width: 2000px) {

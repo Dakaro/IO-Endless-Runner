@@ -7,16 +7,18 @@
         <% let i = 0 %>
         <% topCoins.forEach(user => { %> 
             <%  i = i + 1 %>
-            <div class="post card--small">
-                <h4>
-                    <% if(i === 1){ %>
-                        <i class="fa-solid fa-trophy icon--gold"></i>
-                    <% } else { %>
-                        <strong class="color-secondary"><%= i %>. </strong>
-                    <% } %>
-                    <img alt="avatar" class="avatar avi" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
+            <div class="post card--small ranking">
+                <div class="ranking">
+                    <h4>
+                        <% if(i === 1){ %>
+                            <i class="fa-solid fa-trophy icon--gold no-marg"></i>
+                        <% } else { %>
+                            <strong class="color-secondary"><%= i %>. </strong>
+                        <% } %>
+                    </h4>
+                    <img alt="avatar" class="avatar avi avi--ranking" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
                     <a href="/user/<%= user.id %>"><%= user.username %></a>
-                </h4>
+                </div>
                 <div class="right">
                     <i class="fa-solid fa-coins icon--gold--left icon--gold"></i>
                     <strong class="color-secondary"><%= user.coins %></strong>
@@ -25,23 +27,25 @@
         <% }) %>         
     </div>
     <div class="ranking-section">
-        <h3>Points</h3>
+        <h3>Distance</h3>
         <% i = 0 %>
         <% topPoints.forEach((user) => { %> 
             <%  i = i + 1 %>
-            <div class="post card--small">
-                <h4>
-                    <% if(i === 1){ %>
-                        <i class="fa-solid fa-trophy icon--gold"></i>
-                    <% } else { %>
-                        <strong class="color-secondary"><%= i %>. </strong>
-                    <% } %>
-                    <img alt="avatar" class="avatar avi" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
+            <div class="post card--small ranking">
+                <div class="ranking">
+                    <h4>
+                        <% if(i === 1){ %>
+                            <i class="fa-solid fa-trophy icon--gold no-marg"></i>
+                        <% } else { %>
+                            <strong class="color-secondary"><%= i %>. </strong>
+                        <% } %>
+                    </h4>
+                    <img alt="avatar" class="avatar avi avi--ranking" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
                     <a href="/user/<%= user.id %>"><%= user.username %></a>
-                </h4>
+                </div>
                 <div class="right">
                     <strong class="color-secondary"><%= user.points %></strong>
-                    <strong> points</strong>
+                    <strong> m</strong>
                 </div>
             </div>
         <% }) %>       
