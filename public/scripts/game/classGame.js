@@ -105,7 +105,7 @@ class Game {
         this2.changeSpeed();
         this2.findHit();
       }
-    }, 3);
+    }, 1000);
   }
 
   endGame() {
