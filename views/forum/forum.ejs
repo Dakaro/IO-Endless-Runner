@@ -5,15 +5,15 @@
 <div class="sticky-container-top-forum">
 <div class="posts-wrapper">
     <form action="/forum" method="POST">
-        <div>
+        <div class="inline-input-container">
             <label for="title" hidden>Title</label>
             <input type="text" name="title" id="title" placeholder="Post title" class="input--big">
-        </div>
+        <button type="submit">Post</button>
+    </div>
         <div>
             <label for="content" hidden>Content</label>
             <textarea required name="content" id="content" placeholder="Enter your post here"></textarea>
         </div>
-        <button type="submit">Post</button>
     </form>
 </div>
 </div>

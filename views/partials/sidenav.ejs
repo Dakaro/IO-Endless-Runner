@@ -2,26 +2,28 @@
 <nav>
     <a href="/">Coin Hunter</a>
     <div class="user-nav">
-        <img alt="avatar" class="avatar" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
-        <div>
+        <a href="/user">
+            <img alt="avatar" class="avatar" src="/avis/<%= user.equippedSkin ? user.equippedSkin : 0 %>.gif">
+        </a>
+        <div class="user-nav-info">
             <h4><%= user.username %></h4>
             <h5><i class="fa-solid fa-coins icon--gold--left icon--gold"></i><%= user.coins %> </h5>
         </div>
     </div>
 
     <ul>
-        <li><a href="/user"><i class="fa-solid fa-user"></i>Profile</a></li>
-        <li><a href="/"><i class="fa-solid fa-trophy"></i>Play</a></li>
-        <li><a href="/shop"><i class="fa-solid fa-cart-shopping"></i>Shop</a></li>
-        <li><a href="/forum"><i class="fa-solid fa-comments"></i>Forum</a></li>
-        <li><a href="/catalog"><i class="fa-solid fa-users"></i>All users</a></li>
-        <li><a href="/ranking"><i class="fa-solid fa-ranking-star"></i>Top 10</a></li>
-        <li><a href="/report"><i class="fa-solid fa-circle-exclamation"></i>Report error</a></li>
+        <li><a href="/user"><i class="fa-solid fa-user"></i><span>Profile</span></a></li>
+        <li><a href="/"><i class="fa-solid fa-trophy"></i><span>Play</span></a></li>
+        <li><a href="/shop"><i class="fa-solid fa-cart-shopping"></i><span>Shop</span></a></li>
+        <li><a href="/forum"><i class="fa-solid fa-comments"></i><span>Forum</span></a></li>
+        <li><a href="/catalog"><i class="fa-solid fa-users"></i><span>All users</span></a></li>
+        <li><a href="/ranking"><i class="fa-solid fa-ranking-star"></i><span>Top 10</span></a></li>
+        <li><a href="/report"><i class="fa-solid fa-circle-exclamation"></i><span>Report error</span></a></li>
         <li>
             <form action="/auth/logout?_method=DELETE" method="POST">
                 <button type="submit">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    Log Out
+                    <span>Log Out</span>
                 </button>
             </form>
         </li>

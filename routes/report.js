@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const authCheck = require('../authCheck')
+const utils = require('../utils')
 require('dotenv').config()
 
 const nodemailer = require('nodemailer');
@@ -13,11 +13,11 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-router.get('/', authCheck.checkAuthenticated, (req, res) => {
+router.get('/', utils.checkAuthenticated, (req, res) => {
     res.render('report/report', {user: req.user, email: process.env.EMAIL_ADDRESS})
 })
 
-router.post('/', authCheck.checkAuthenticated, async (req, res) =>{
+router.post('/', utils.checkAuthenticated, async (req, res) =>{
     let mailOptions = {
         from: process.env.EMAIL_ADDRESS,
         to: process.env.EMAIL_ADDRESS,
