@@ -10,6 +10,9 @@
             
             <% if(user.unlockedSkins.includes(i)){ %>
                 <p><i class="fa-solid fa-check"></i> Unlocked!</p>
+                <form action="/user/avi/<%= i %>" method="POST">
+                    <button type="submit">Equip</button>
+                </form>
             <% } else if(prices[i] > user.coins){ %>
                 <h3><i class="fa-solid fa-coins"></i> <%= prices[i] %></h3>
                 <button disabled="true">Unlock</button>
