@@ -1,41 +1,52 @@
-<% let userToRender = userToDisplay ? userToDisplay : user %> 
-<main>
-    <div class="user-info">
-        <img alt="avatar" class="avatar avi--big" src="/avis/<%= userToRender.equippedSkin ? userToRender.equippedSkin : 0 %>.gif">
-        <h1 class="decorative big"><%= userToRender.username %></h1>
-        <p class="color-secondary">
-            Playing since <strong><%= userToRender.joinDate.toLocaleDateString() %></strong> |
-             Last seen <strong><%= userToRender.lastSeen.toLocaleDateString() %></strong>
-        </p>
+<% let userToRender=userToDisplay ? userToDisplay : user %>
+<div class="user-info">
+    <img alt="avatar" class="avatar avi--big"
+        src="/avis/<%= userToRender.equippedSkin ? userToRender.equippedSkin : 0 %>.gif">
+    <h1 class="decorative big">
+        <%= userToRender.username %>
+    </h1>
+    <p class="color-secondary">
+        Playing since <strong>
+            <%= userToRender.joinDate.toLocaleDateString() %>
+        </strong> |
+        Last seen <strong>
+            <%= userToRender.lastSeen.toLocaleDateString() %>
+        </strong>
+    </p>
+</div>
+
+<div class="user-stats">
+    <div class="highlighted-color">
+        <!-- <h3><i class="fa-solid fa-coins icon--gold--left icon--gold"></i></h3> -->
+        <img src="/scripts/game/img/coin.gif" alt="hero" class="img--small img--small--pad">
+        <h3>
+            <%= userToRender.coins %>
+        </h3>
+        <p>Total Coins</p>
     </div>
-    
-    <div class="user-stats">
-        <div class="highlighted-color">
-            <h3><%= userToRender.coins %> </h3>
-            <p>Total Coins</p>
-        </div>
-        
-        <div class="highlighted-color">
-            <h3><%= userToRender.points %> </h3>
-            <p>Longest Distance</p>
-        </div>
+
+    <div class="highlighted-color">
+        <img src="/scripts/game/img/dino.gif" alt="hero" class="img--small">
+        <h3>
+            <%= userToRender.points %>
+        </h3>
+        <p>Longest Distance</p>
     </div>
-    
-    <h2>Unlocked skins</h2>
-    <div class="card-wrapper">
-        <% userToRender.unlockedSkins && userToRender.unlockedSkins.forEach((skinIndex) => { %> 
-            <div class="avi-card">
-                <img src="/avis/<%= skinIndex %>.gif" alt="avatar" class="avatar avi--big">
-                
-                <% if(userToRender === user && userToRender.equippedSkin === skinIndex){ %>
-                    <button disabled="true">Equipped</button>
-                <% } else if(userToRender === user){ %>
-                    <form action="/user/avi/<%= skinIndex %>" method="POST"> 
+</div>
+
+<h2>Unlocked skins</h2>
+<div class="card-wrapper">
+    <% userToRender.unlockedSkins && userToRender.unlockedSkins.forEach((skinIndex)=> { %>
+        <div class="avi-card">
+            <img src="/avis/<%= skinIndex %>.gif" alt="avatar" class="avatar avi--big">
+
+            <% if(userToRender===user && userToRender.equippedSkin===skinIndex){ %>
+                <button disabled="true">Equipped</button>
+                <% } else if(userToRender===user){ %>
+                    <form action="/user/avi/<%= skinIndex %>" method="POST">
                         <button type="submit">Equip</button>
                     </form>
-                <% } %> 
-            </div>
-        <% }) %> 
-    </div>
-    
-</main>
+                    <% } %>
+        </div>
+        <% }) %>
+</div>

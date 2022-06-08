@@ -2,10 +2,12 @@
     <h1>All users</h1>
 </div>
 
-<form action="/catalog" method="GET">
-    <input placeholder="Search..." class="search" name="username" value=<%= searchOptions.username ? searchOptions.username : null %>  >
-    <button type="submit">Search</button>
-</form>
+<div class="posts-wrapper shrink">
+    <form action="/catalog" method="GET" class="inline-input-container">
+        <input placeholder="Search..." class="search" name="username" value=<%= searchOptions.username ? searchOptions.username : null %>  >
+        <button type="submit">Search</button>
+    </form>
+</div>
 
 <div class="card-wrapper">
     <% users && users.forEach((catalogUser) => { %> 
