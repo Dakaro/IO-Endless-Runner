@@ -29,7 +29,7 @@ class Game {
 
   changeSpeed() {
     setInterval(function () {
-      if (speed > 0.3) speed -= ACCELERATION;
+      if (speed >= 0.3) speed -= ACCELERATION;
     }, 3000);
   }
 
