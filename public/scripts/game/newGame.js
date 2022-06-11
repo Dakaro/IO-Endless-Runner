@@ -180,7 +180,7 @@ var GameEngine = /** @class */ (function () {
         this.coins.forEach(function (coin, index) {
             // Move each coin to the left and remove if outside the box
             coin.setPosition();
-            if (coin.position <= 0) {
+            if (coin.position <= -50) {
                 _this.coins.splice(index, 1);
                 coin.remove();
             }
@@ -195,7 +195,7 @@ var GameEngine = /** @class */ (function () {
         this.enemies.forEach(function (enemy, index) {
             // Move each enemy to the left and remove if outside the box
             enemy.setPosition();
-            if (enemy.position <= -10) {
+            if (enemy.position <= -50) {
                 _this.enemies.splice(index, 1);
                 enemy.remove();
             }
@@ -210,6 +210,7 @@ var GameEngine = /** @class */ (function () {
             this.player.jump();
         if (this.player.lives == 0) {
             this.endGame();
+            this.player.lives = -1;
         }
         this.coinsUpdate(this.player.position);
         this.enemiesUpdate(this.player.position);
@@ -259,6 +260,7 @@ var GameEngine = /** @class */ (function () {
         }, 3000);
     };
     GameEngine.prototype.endGame = function () {
+        GAME_ON = 0;
         modalEl.style.display = "block";
         countdownEl.style.display = "block";
         overEl.style.display = "block";
@@ -275,11 +277,7 @@ var GameEngine = /** @class */ (function () {
             "Final distance: ".concat(finalDistance, "m") +
                 "<br />" +
                 "Collected coins: ".concat(finalScore);
-                if( GAME_ON )
-                  this.sendResultToDb(finalScore, finalDistance)
-         GAME_ON = 0
-         coins = 0
-         this.player.distance = 0
+        this.sendResultToDb(finalScore, finalDistance);
     };
     // post request with coins and points update after game over
     // updates sidenav coin value
