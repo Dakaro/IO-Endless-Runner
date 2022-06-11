@@ -30,7 +30,7 @@ var MAX_COIN_DELAY = 7000;
 var MIN_ENEMY_DELAY = 1000;
 var MAX_ENEMY_DELAY = 4000;
 var LIVES_NUMBER = 3;
-var IMMUNITY_DURATION = 2000;
+var IMMUNITY_DURATION = 200;
 var MAX_SPEED = -19;
 var ACCELERATION = -0.001;
 var SPEED = -6;
@@ -83,11 +83,12 @@ var Coin = /** @class */ (function (_super) {
     Coin.prototype.grabCoin = function () {
         var _this = this;
         if (!this.entityDiv.classList.contains("grabItem")) {
+            coinIconEl.classList.add("coinJump");
             coins++;
             scoreAmountEl.innerHTML = coins;
         }
         this.entityDiv.classList.add("grabItem");
-        setTimeout(function () { _this.remove(); }, 200);
+        setTimeout(function () { _this.remove(); coinIconEl.classList.remove("coinJump"); }, 200);
     };
     return Coin;
 }(Entity));
@@ -150,7 +151,8 @@ var Player = /** @class */ (function () {
             this.immune = true;
             --this.lives;
             hearthsEl[this.lives].classList.add("grabItem");
-            setTimeout(function () { hearthsEl[_this.lives].remove(); }, 200);
+            containerEl.classList.add("hit");
+            setTimeout(function () { hearthsEl[_this.lives].remove(); containerEl.classList.remove("hit"); }, 200);
             setTimeout(function () { return _this.immune = false; }, IMMUNITY_DURATION);
         }
     };
@@ -277,7 +279,7 @@ var GameEngine = /** @class */ (function () {
             "Final distance: ".concat(finalDistance, "m") +
                 "<br />" +
                 "Collected coins: ".concat(finalScore);
-        this.sendResultToDb(finalScore, finalDistance);
+            this.sendResultToDb(finalScore, finalDistance)
     };
     // post request with coins and points update after game over
     // updates sidenav coin value

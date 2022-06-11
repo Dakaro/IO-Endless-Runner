@@ -18,7 +18,7 @@ const MIN_ENEMY_DELAY = 1000
 const MAX_ENEMY_DELAY = 4000
 
 const LIVES_NUMBER = 3
-const IMMUNITY_DURATION = 2000
+const IMMUNITY_DURATION = 200
 
 const MAX_SPEED = -19
 const ACCELERATION = -0.001
@@ -90,11 +90,12 @@ class Coin extends Entity{
     grabCoin(): any{
 
           if( !this.entityDiv.classList.contains("grabItem") ){
+            coinIconEl.classList.add("coinJump");
             coins++;
             scoreAmountEl.innerHTML = coins;
           }
           this.entityDiv.classList.add("grabItem")
-          setTimeout(() => { this.remove() }, 200);
+          setTimeout(() => { this.remove(); coinIconEl.classList.remove("coinJump"); }, 200);
     }
 
 }
@@ -166,7 +167,8 @@ class Player {
             --this.lives
 
             hearthsEl[this.lives].classList.add("grabItem");
-            setTimeout(() => { hearthsEl[this.lives].remove(); }, 200);
+            containerEl.classList.add("hit");
+            setTimeout(() => { hearthsEl[this.lives].remove(); containerEl.classList.remove("hit") }, 200);
 
 
             setTimeout(() => this.immune = false, IMMUNITY_DURATION)

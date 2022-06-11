@@ -189,6 +189,24 @@
   animation-duration: 200ms;
 }
 
+.coinJump{
+  animation-name: coinJump;
+  animation-duration: 200ms;
+}
+
+@keyframes coinJump{
+  0% {
+    top: 70px;
+  }
+  50% {
+    top: 60px;
+  }
+  100% {
+    bottom: 70px;
+  }
+
+}
+
 @keyframes grab {
   0% {
     bottom: 140px;
