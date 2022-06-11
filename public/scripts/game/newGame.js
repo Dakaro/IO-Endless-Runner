@@ -276,7 +276,7 @@ var GameEngine = /** @class */ (function () {
             "Final distance: ".concat(finalDistance, "m") +
                 "<br />" +
                 "Collected coins: ".concat(finalScore);
-        //  this.sendResultToDb(finalScore, finalDistance)
+         this.sendResultToDb(finalScore, finalDistance)
     };
     // post request with coins and points update after game over
     // updates sidenav coin value

@@ -312,7 +312,7 @@ class GameEngine {
         `Final distance: ${finalDistance}m` +
         "<br />" +
         `Collected coins: ${finalScore}`;
-    //  this.sendResultToDb(finalScore, finalDistance)
+      this.sendResultToDb(finalScore, finalDistance)
     }
 
     // post request with coins and points update after game over
