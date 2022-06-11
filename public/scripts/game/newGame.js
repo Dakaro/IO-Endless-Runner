@@ -35,67 +35,70 @@ var setRandomInterval = function (intervalFunction, minDelay, maxDelay) {
         clear: function () { clearTimeout(timeout); }
     };
 };
-//entity abstract factory
-var EntityFactory = /** @class */ (function () {
-    function EntityFactory() {
+//enemy concrete factory
+var EnemyFactory = /** @class */ (function () {
+    function EnemyFactory() {
+        this.MIN_DELAY = 1000;
+        this.MAX_DELAY = 4000;
+    }
+    EnemyFactory.prototype.CreateEntity = function () {
+        return new Enemy();
+    };
+    return EnemyFactory;
+}());
+//coin concrete facotry
+var CoinFactory = /** @class */ (function () {
+    function CoinFactory() {
+        this.MIN_DELAY = 2000;
+        this.MAX_DELAY = 7000;
+    }
+    CoinFactory.prototype.CreateEntity = function () {
+        return new Coin();
+    };
+    return CoinFactory;
+}());
+//abstract entity
+var AbstractEntity = /** @class */ (function () {
+    function AbstractEntity() {
         this.position = 750;
     }
-    EntityFactory.prototype.getMinDelay = function () {
-        return this.MIN_DELAY;
-    };
-    EntityFactory.prototype.getMaxDelay = function () {
-        return this.MAX_DELAY;
-    };
-    EntityFactory.prototype.changePosition = function (change) {
+    AbstractEntity.prototype.changePosition = function (change) {
         this.position += change;
         this.entityDiv.style.left = this.position + 'px';
     };
-    EntityFactory.prototype.remove = function () {
+    AbstractEntity.prototype.remove = function () {
         this.entityDiv.remove();
     };
-    return EntityFactory;
+    return AbstractEntity;
 }());
-//enemy factory
-var EnemyFactory = /** @class */ (function (_super) {
-    __extends(EnemyFactory, _super);
-    function EnemyFactory() {
+var Enemy = /** @class */ (function (_super) {
+    __extends(Enemy, _super);
+    function Enemy() {
         var _this = _super.call(this) || this;
-        _this.MIN_DELAY = 1000;
-        _this.MAX_DELAY = 4000;
         _this.entityDiv = document.createElement("div");
         _this.entityDiv.classList.add("enemy");
         containerEl.appendChild(_this.entityDiv);
         return _this;
     }
-    EnemyFactory.prototype.checkCollision = function (playerPosition) {
+    Enemy.prototype.checkCollision = function (playerPosition) {
         return this.position < 70 && this.position > 20 && playerPosition <= 70;
     };
-    EnemyFactory.prototype.CreateEntity = function () {
-        var newEnemy = new EnemyFactory();
-        return newEnemy;
-    };
-    return EnemyFactory;
-}(EntityFactory));
-var CoinFactory = /** @class */ (function (_super) {
-    __extends(CoinFactory, _super);
-    function CoinFactory() {
+    return Enemy;
+}(AbstractEntity));
+var Coin = /** @class */ (function (_super) {
+    __extends(Coin, _super);
+    function Coin() {
         var _this = _super.call(this) || this;
-        _this.MIN_DELAY = 2000;
-        _this.MAX_DELAY = 7000;
         _this.entityDiv = document.createElement("div");
         _this.entityDiv.classList.add("coin");
         containerEl.appendChild(_this.entityDiv);
         return _this;
     }
-    CoinFactory.prototype.checkCollision = function (playerPosition) {
+    Coin.prototype.checkCollision = function (playerPosition) {
         return this.position < 70 && this.position > 20 && playerPosition >= 50;
     };
-    CoinFactory.prototype.CreateEntity = function () {
-        var newCoin = new CoinFactory();
-        return newCoin;
-    };
-    return CoinFactory;
-}(EntityFactory));
+    return Coin;
+}(AbstractEntity));
 var GenerateEntity = /** @class */ (function () {
     function GenerateEntity(factory) {
         this.factory = factory;
@@ -103,7 +106,8 @@ var GenerateEntity = /** @class */ (function () {
     GenerateEntity.prototype.generateEntity = function (entityArray) {
         var _this = this;
         return setRandomInterval(function () {
-            entityArray.push(_this.factory.CreateEntity());
+            var newEntity = _this.factory.CreateEntity();
+            entityArray.push(newEntity);
         }, this.factory.MIN_DELAY, this.factory.MAX_DELAY);
     };
     return GenerateEntity;

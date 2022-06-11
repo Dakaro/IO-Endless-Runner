@@ -23,66 +23,67 @@ const setRandomInterval = (intervalFunction, minDelay, maxDelay) => {
 };
 
 //entity abstract factory
-abstract class EntityFactory {
+interface EntityFactory {
+    MIN_DELAY: number;
+    MAX_DELAY: number;
+    CreateEntity(): AbstractEntity;
+}
+
+//enemy concrete factory
+class EnemyFactory implements EntityFactory {
+    MIN_DELAY = 1000;
+    MAX_DELAY = 4000;
+    public CreateEntity(): AbstractEntity {
+        return new Enemy();
+    }
+}
+
+//coin concrete facotry
+class CoinFactory implements EntityFactory {
+    MIN_DELAY = 2000;
+    MAX_DELAY = 7000;
+    CreateEntity(): AbstractEntity {
+        return new Coin();
+    }
+}
+
+//abstract entity
+abstract class AbstractEntity {
     position: number;
     entityDiv: HTMLDivElement;
 
-    MIN_DELAY: number;
-    MAX_DELAY: number;
-
     constructor() {
         this.position = 750;
-    }
-
-    getMinDelay(): number {
-        return this.MIN_DELAY;
-    }
-
-    getMaxDelay(): number {
-        return this.MAX_DELAY;
     }
 
     public changePosition(change: number) {
         this.position += change;
         this.entityDiv.style.left = this.position + 'px';
     }
-    
-    public remove(){
+
+    remove(){
         this.entityDiv.remove();
     }
 
-    abstract CreateEntity(): EntityFactory;
-    
     abstract checkCollision(playerPosition: number): boolean;
 
 }
 
-//enemy factory
-class EnemyFactory extends EntityFactory {
-    MIN_DELAY = 1000
-    MAX_DELAY = 4000
-    
+class Enemy extends AbstractEntity {
+
     constructor(){
         super()
         this.entityDiv = document.createElement("div");
         this.entityDiv.classList.add("enemy");
         containerEl.appendChild(this.entityDiv);
     }
-    
+
     checkCollision(playerPosition: number): boolean{
         return this.position < 70 && this.position > 20 && playerPosition <= 70
     }
-
-    CreateEntity(): EntityFactory {
-        let newEnemy = new EnemyFactory();
-        return newEnemy;
-    }
 }
 
-class CoinFactory extends EntityFactory {
-    MIN_DELAY = 2000
-    MAX_DELAY = 7000
-
+class Coin extends AbstractEntity {
     constructor(){
         super()
         this.entityDiv = document.createElement("div");
@@ -92,11 +93,6 @@ class CoinFactory extends EntityFactory {
     
     checkCollision(playerPosition: number): boolean{
         return this.position < 70 && this.position > 20 && playerPosition >= 50
-    }
-
-    CreateEntity(): EntityFactory {
-        let newCoin = new CoinFactory();
-        return newCoin;
     }
 }
 
@@ -109,13 +105,12 @@ class GenerateEntity {
 
     public generateEntity(entityArray): {clear: () => void} {
         return setRandomInterval(() => {
-            entityArray.push(this.factory.CreateEntity())
+            let newEntity = this.factory.CreateEntity();
+            entityArray.push(newEntity)
         },
         this.factory.MIN_DELAY, this.factory.MAX_DELAY)
     }
-
 }
-
 
 class Player {
     playerDiv: HTMLElement
@@ -190,8 +185,8 @@ class Controller {
 class GameEngine {   
     controller: Controller
     player: Player
-    coins: CoinFactory[]
-    enemies: EnemyFactory[]
+    coins: Coin[]
+    enemies: Enemy[]
     coinGeneratorInterval: {clear: () => void}
     enemyGeneratorInterval: {clear: () => void}
     
