@@ -259,7 +259,6 @@ var GameEngine = /** @class */ (function () {
         }, 3000);
     };
     GameEngine.prototype.endGame = function () {
-        GAME_ON = 0;
         modalEl.style.display = "block";
         countdownEl.style.display = "block";
         overEl.style.display = "block";
@@ -276,7 +275,9 @@ var GameEngine = /** @class */ (function () {
             "Final distance: ".concat(finalDistance, "m") +
                 "<br />" +
                 "Collected coins: ".concat(finalScore);
-         this.sendResultToDb(finalScore, finalDistance)
+                if( GAME_ON )
+                  this.sendResultToDb(finalScore, finalDistance)
+         GAME_ON = 0
          coins = 0
          this.player.distance = 0
     };
