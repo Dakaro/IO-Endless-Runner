@@ -206,7 +206,7 @@ class GameEngine {
         this.coins.forEach((coin, index) => {
             // Move each coin to the left and remove if outside the box
             coin.setPosition()
-            if (coin.position <= 0) {
+            if (coin.position <= -50) {
                 this.coins.splice(index, 1)
                 coin.remove()
             }
@@ -223,7 +223,7 @@ class GameEngine {
         this.enemies.forEach((enemy, index) => {
             // Move each enemy to the left and remove if outside the box
             enemy.setPosition()
-            if (enemy.position <= -10) {
+            if (enemy.position <= -50) {
                 this.enemies.splice(index, 1)
                 enemy.remove()
             }
@@ -241,7 +241,7 @@ class GameEngine {
 
         if( this.player.lives == 0 ){
           this.endGame();
-          this.player.lives = 0
+          this.player.lives = -1
         }
 
         this.coinsUpdate(this.player.position)
