@@ -1,8 +1,8 @@
 let containerEl = document.getElementById("container");
-const MIN_COIN_DELAY = 2000
-const MAX_COIN_DELAY = 7000
-const MIN_ENEMY_DELAY = 1000
-const MAX_ENEMY_DELAY = 4000
+//const MIN_COIN_DELAY = 2000
+//const MAX_COIN_DELAY = 7000
+//const MIN_ENEMY_DELAY = 1000
+//const MAX_ENEMY_DELAY = 4000
 const LIVES_NUMBER = 3
 const IMMUNITY_DURATION = 2000
 
@@ -22,48 +22,45 @@ const setRandomInterval = (intervalFunction, minDelay, maxDelay) => {
     };
 };
 
+//entity abstract factory
+abstract class EntityFactory {
+    position: number;
+    entityDiv: HTMLDivElement;
 
-abstract class Entity {
-    position: number
-    entityDiv: HTMLDivElement
-    
-    constructor(){
-        this.position = 750
+    MIN_DELAY: number;
+    MAX_DELAY: number;
+
+    constructor() {
+        this.position = 750;
+    }
+
+    getMinDelay(): number {
+        return this.MIN_DELAY;
+    }
+
+    getMaxDelay(): number {
+        return this.MAX_DELAY;
+    }
+
+    public changePosition(change: number) {
+        this.position += change;
+        this.entityDiv.style.left = this.position + 'px';
     }
     
-    setPosition(change: number){
-        this.position += change
-        this.entityDiv.style.left = this.position + 'px'
+    public remove(){
+        this.entityDiv.remove();
     }
+
+    abstract CreateEntity(): EntityFactory;
     
-    remove(){
-        this.entityDiv.remove()
-    }
-    
-    abstract checkCollision(playerPosition: number): boolean
+    abstract checkCollision(playerPosition: number): boolean;
+
 }
 
-
-class Coin extends Entity{
-    position: number
-    entityDiv: HTMLDivElement
-    
-    constructor(){
-        super()
-        this.entityDiv = document.createElement("div");
-        this.entityDiv.classList.add("coin");
-        containerEl.appendChild(this.entityDiv);
-    }
-    
-    checkCollision(playerPosition: number): boolean{
-        return this.position < 70 && this.position > 20 && playerPosition >= 50
-    }
-}
-
-
-class Enemy extends Entity{
-    position: number
-    entityDiv: HTMLDivElement
+//enemy factory
+class EnemyFactory extends EntityFactory {
+    MIN_DELAY = 1000
+    MAX_DELAY = 4000
     
     constructor(){
         super()
@@ -75,25 +72,48 @@ class Enemy extends Entity{
     checkCollision(playerPosition: number): boolean{
         return this.position < 70 && this.position > 20 && playerPosition <= 70
     }
-}
 
-
-class CoinsGenerator {
-    static generateCoins(coinsArray): {clear: () => void}{
-        return setRandomInterval(() => {
-            let newCoin = new Coin()
-            coinsArray.push(newCoin)
-        }, MIN_COIN_DELAY, MAX_COIN_DELAY)
+    CreateEntity(): EntityFactory {
+        let newEnemy = new EnemyFactory();
+        return newEnemy;
     }
 }
 
-class EnemyGenerator {
-    static generateEnemies(enemyArray): {clear: () => void}{
-        return setRandomInterval(() => {
-            let newEnemy = new Enemy()
-            enemyArray.push(newEnemy)
-        }, MIN_ENEMY_DELAY, MAX_ENEMY_DELAY)
+class CoinFactory extends EntityFactory {
+    MIN_DELAY = 2000
+    MAX_DELAY = 7000
+
+    constructor(){
+        super()
+        this.entityDiv = document.createElement("div");
+        this.entityDiv.classList.add("coin");
+        containerEl.appendChild(this.entityDiv);
     }
+    
+    checkCollision(playerPosition: number): boolean{
+        return this.position < 70 && this.position > 20 && playerPosition >= 50
+    }
+
+    CreateEntity(): EntityFactory {
+        let newCoin = new CoinFactory();
+        return newCoin;
+    }
+}
+
+class GenerateEntity {
+    factory: EntityFactory;
+
+    constructor(factory: EntityFactory) {
+        this.factory = factory;
+    }
+
+    public generateEntity(entityArray): {clear: () => void} {
+        return setRandomInterval(() => {
+            entityArray.push(this.factory.CreateEntity())
+        },
+        this.factory.MIN_DELAY, this.factory.MAX_DELAY)
+    }
+
 }
 
 
@@ -170,15 +190,15 @@ class Controller {
 class GameEngine {   
     controller: Controller
     player: Player
-    coins: Coin[]
-    enemies: Enemy[]
+    coins: CoinFactory[]
+    enemies: EnemyFactory[]
     coinGeneratorInterval: {clear: () => void}
     enemyGeneratorInterval: {clear: () => void}
     
     coinsUpdate(playerPosition: number): any {
         this.coins.forEach((coin, index) => {
             // Move each coin to the left and remove if outside the box
-            coin.setPosition(-5)
+            coin.changePosition(-5)
             if (coin.position <= -50) {
                 this.coins.splice(index, 1)
                 coin.remove()
@@ -192,7 +212,7 @@ class GameEngine {
     enemiesUpdate(playerPosition: number): any {
         this.enemies.forEach((enemy, index) => {
             // Move each enemy to the left and remove if outside the box
-            enemy.setPosition(-5)
+            enemy.changePosition(-5)
             if (enemy.position <= -50) {
                 this.enemies.splice(index, 1)
                 enemy.remove()
@@ -225,8 +245,8 @@ class GameEngine {
         this.enemies = []
         
         window.requestAnimationFrame(() => this.gameLoop(Date.now()))
-        this.coinGeneratorInterval = CoinsGenerator.generateCoins(this.coins)
-        this.enemyGeneratorInterval = EnemyGenerator.generateEnemies(this.enemies)
+        this.coinGeneratorInterval = new GenerateEntity(new CoinFactory()).generateEntity(this.coins)
+        this.enemyGeneratorInterval = new GenerateEntity(new EnemyFactory()).generateEntity(this.enemies)
     }
 }
 

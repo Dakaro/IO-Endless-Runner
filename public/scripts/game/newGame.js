@@ -14,10 +14,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var containerEl = document.getElementById("container");
-var MIN_COIN_DELAY = 2000;
-var MAX_COIN_DELAY = 7000;
-var MIN_ENEMY_DELAY = 1000;
-var MAX_ENEMY_DELAY = 4000;
+//const MIN_COIN_DELAY = 2000
+//const MAX_COIN_DELAY = 7000
+//const MIN_ENEMY_DELAY = 1000
+//const MAX_ENEMY_DELAY = 4000
 var LIVES_NUMBER = 3;
 var IMMUNITY_DURATION = 2000;
 var setRandomInterval = function (intervalFunction, minDelay, maxDelay) {
@@ -35,68 +35,78 @@ var setRandomInterval = function (intervalFunction, minDelay, maxDelay) {
         clear: function () { clearTimeout(timeout); }
     };
 };
-var Entity = /** @class */ (function () {
-    function Entity() {
+//entity abstract factory
+var EntityFactory = /** @class */ (function () {
+    function EntityFactory() {
         this.position = 750;
     }
-    Entity.prototype.setPosition = function (change) {
+    EntityFactory.prototype.getMinDelay = function () {
+        return this.MIN_DELAY;
+    };
+    EntityFactory.prototype.getMaxDelay = function () {
+        return this.MAX_DELAY;
+    };
+    EntityFactory.prototype.changePosition = function (change) {
         this.position += change;
         this.entityDiv.style.left = this.position + 'px';
     };
-    Entity.prototype.remove = function () {
+    EntityFactory.prototype.remove = function () {
         this.entityDiv.remove();
     };
-    return Entity;
+    return EntityFactory;
 }());
-var Coin = /** @class */ (function (_super) {
-    __extends(Coin, _super);
-    function Coin() {
+//enemy factory
+var EnemyFactory = /** @class */ (function (_super) {
+    __extends(EnemyFactory, _super);
+    function EnemyFactory() {
         var _this = _super.call(this) || this;
-        _this.entityDiv = document.createElement("div");
-        _this.entityDiv.classList.add("coin");
-        containerEl.appendChild(_this.entityDiv);
-        return _this;
-    }
-    Coin.prototype.checkCollision = function (playerPosition) {
-        return this.position < 70 && this.position > 20 && playerPosition >= 50;
-    };
-    return Coin;
-}(Entity));
-var Enemy = /** @class */ (function (_super) {
-    __extends(Enemy, _super);
-    function Enemy() {
-        var _this = _super.call(this) || this;
+        _this.MIN_DELAY = 1000;
+        _this.MAX_DELAY = 4000;
         _this.entityDiv = document.createElement("div");
         _this.entityDiv.classList.add("enemy");
         containerEl.appendChild(_this.entityDiv);
         return _this;
     }
-    Enemy.prototype.checkCollision = function (playerPosition) {
+    EnemyFactory.prototype.checkCollision = function (playerPosition) {
         return this.position < 70 && this.position > 20 && playerPosition <= 70;
     };
-    return Enemy;
-}(Entity));
-var CoinsGenerator = /** @class */ (function () {
-    function CoinsGenerator() {
-    }
-    CoinsGenerator.generateCoins = function (coinsArray) {
-        return setRandomInterval(function () {
-            var newCoin = new Coin();
-            coinsArray.push(newCoin);
-        }, MIN_COIN_DELAY, MAX_COIN_DELAY);
+    EnemyFactory.prototype.CreateEntity = function () {
+        var newEnemy = new EnemyFactory();
+        return newEnemy;
     };
-    return CoinsGenerator;
-}());
-var EnemyGenerator = /** @class */ (function () {
-    function EnemyGenerator() {
+    return EnemyFactory;
+}(EntityFactory));
+var CoinFactory = /** @class */ (function (_super) {
+    __extends(CoinFactory, _super);
+    function CoinFactory() {
+        var _this = _super.call(this) || this;
+        _this.MIN_DELAY = 2000;
+        _this.MAX_DELAY = 7000;
+        _this.entityDiv = document.createElement("div");
+        _this.entityDiv.classList.add("coin");
+        containerEl.appendChild(_this.entityDiv);
+        return _this;
     }
-    EnemyGenerator.generateEnemies = function (enemyArray) {
-        return setRandomInterval(function () {
-            var newEnemy = new Enemy();
-            enemyArray.push(newEnemy);
-        }, MIN_ENEMY_DELAY, MAX_ENEMY_DELAY);
+    CoinFactory.prototype.checkCollision = function (playerPosition) {
+        return this.position < 70 && this.position > 20 && playerPosition >= 50;
     };
-    return EnemyGenerator;
+    CoinFactory.prototype.CreateEntity = function () {
+        var newCoin = new CoinFactory();
+        return newCoin;
+    };
+    return CoinFactory;
+}(EntityFactory));
+var GenerateEntity = /** @class */ (function () {
+    function GenerateEntity(factory) {
+        this.factory = factory;
+    }
+    GenerateEntity.prototype.generateEntity = function (entityArray) {
+        var _this = this;
+        return setRandomInterval(function () {
+            entityArray.push(_this.factory.CreateEntity());
+        }, this.factory.MIN_DELAY, this.factory.MAX_DELAY);
+    };
+    return GenerateEntity;
 }());
 var Player = /** @class */ (function () {
     function Player() {
@@ -162,7 +172,7 @@ var GameEngine = /** @class */ (function () {
         var _this = this;
         this.coins.forEach(function (coin, index) {
             // Move each coin to the left and remove if outside the box
-            coin.setPosition(-5);
+            coin.changePosition(-5);
             if (coin.position <= -50) {
                 _this.coins.splice(index, 1);
                 coin.remove();
@@ -174,7 +184,7 @@ var GameEngine = /** @class */ (function () {
         var _this = this;
         this.enemies.forEach(function (enemy, index) {
             // Move each enemy to the left and remove if outside the box
-            enemy.setPosition(-5);
+            enemy.changePosition(-5);
             if (enemy.position <= -50) {
                 _this.enemies.splice(index, 1);
                 enemy.remove();
@@ -206,8 +216,8 @@ var GameEngine = /** @class */ (function () {
         this.coins = [];
         this.enemies = [];
         window.requestAnimationFrame(function () { return _this.gameLoop(Date.now()); });
-        this.coinGeneratorInterval = CoinsGenerator.generateCoins(this.coins);
-        this.enemyGeneratorInterval = EnemyGenerator.generateEnemies(this.enemies);
+        this.coinGeneratorInterval = new GenerateEntity(new CoinFactory()).generateEntity(this.coins);
+        this.enemyGeneratorInterval = new GenerateEntity(new EnemyFactory()).generateEntity(this.enemies);
     };
     return GameEngine;
 }());
