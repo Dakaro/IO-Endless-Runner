@@ -1,8 +1,8 @@
 let containerEl = document.getElementById("container");
-//const MIN_COIN_DELAY = 2000
-//const MAX_COIN_DELAY = 7000
-//const MIN_ENEMY_DELAY = 1000
-//const MAX_ENEMY_DELAY = 4000
+const MIN_COIN_DELAY = 2000
+const MAX_COIN_DELAY = 7000
+const MIN_ENEMY_DELAY = 1000
+const MAX_ENEMY_DELAY = 4000
 const LIVES_NUMBER = 3
 const IMMUNITY_DURATION = 2000
 
@@ -31,8 +31,12 @@ interface EntityFactory {
 
 //enemy concrete factory
 class EnemyFactory implements EntityFactory {
-    MIN_DELAY = 1000;
-    MAX_DELAY = 4000;
+    MIN_DELAY: number;
+    MAX_DELAY: number;
+    constructor(MIN_DELAY: number, MAX_DELAY: number) {
+        this.MIN_DELAY = MIN_DELAY;
+        this.MAX_DELAY = MAX_DELAY;
+    }
     public CreateEntity(): AbstractEntity {
         return new Enemy();
     }
@@ -40,8 +44,12 @@ class EnemyFactory implements EntityFactory {
 
 //coin concrete facotry
 class CoinFactory implements EntityFactory {
-    MIN_DELAY = 2000;
-    MAX_DELAY = 7000;
+    MIN_DELAY: number;
+    MAX_DELAY: number;
+    constructor(MIN_DELAY: number, MAX_DELAY: number) {
+        this.MIN_DELAY = MIN_DELAY;
+        this.MAX_DELAY = MAX_DELAY;
+    }
     CreateEntity(): AbstractEntity {
         return new Coin();
     }
@@ -239,9 +247,10 @@ class GameEngine {
         this.coins = []
         this.enemies = []
         
-        window.requestAnimationFrame(() => this.gameLoop(Date.now()))
-        this.coinGeneratorInterval = new GenerateEntity(new CoinFactory()).generateEntity(this.coins)
-        this.enemyGeneratorInterval = new GenerateEntity(new EnemyFactory()).generateEntity(this.enemies)
+        window.requestAnimationFrame(() => this.gameLoop(Date.now()));
+        let coinFactory = new CoinFactory(MIN_COIN_DELAY, MAX_COIN_DELAY);
+        this.coinGeneratorInterval = new GenerateEntity(coinFactory).generateEntity(this.coins);
+        this.enemyGeneratorInterval = new GenerateEntity(new EnemyFactory(MIN_ENEMY_DELAY, MAX_ENEMY_DELAY)).generateEntity(this.enemies)
     }
 }
 

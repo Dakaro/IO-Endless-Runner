@@ -14,10 +14,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var containerEl = document.getElementById("container");
-//const MIN_COIN_DELAY = 2000
-//const MAX_COIN_DELAY = 7000
-//const MIN_ENEMY_DELAY = 1000
-//const MAX_ENEMY_DELAY = 4000
+var MIN_COIN_DELAY = 2000;
+var MAX_COIN_DELAY = 7000;
+var MIN_ENEMY_DELAY = 1000;
+var MAX_ENEMY_DELAY = 4000;
 var LIVES_NUMBER = 3;
 var IMMUNITY_DURATION = 2000;
 var setRandomInterval = function (intervalFunction, minDelay, maxDelay) {
@@ -37,9 +37,9 @@ var setRandomInterval = function (intervalFunction, minDelay, maxDelay) {
 };
 //enemy concrete factory
 var EnemyFactory = /** @class */ (function () {
-    function EnemyFactory() {
-        this.MIN_DELAY = 1000;
-        this.MAX_DELAY = 4000;
+    function EnemyFactory(MIN_DELAY, MAX_DELAY) {
+        this.MIN_DELAY = MIN_DELAY;
+        this.MAX_DELAY = MAX_DELAY;
     }
     EnemyFactory.prototype.CreateEntity = function () {
         return new Enemy();
@@ -48,9 +48,9 @@ var EnemyFactory = /** @class */ (function () {
 }());
 //coin concrete facotry
 var CoinFactory = /** @class */ (function () {
-    function CoinFactory() {
-        this.MIN_DELAY = 2000;
-        this.MAX_DELAY = 7000;
+    function CoinFactory(MIN_DELAY, MAX_DELAY) {
+        this.MIN_DELAY = MIN_DELAY;
+        this.MAX_DELAY = MAX_DELAY;
     }
     CoinFactory.prototype.CreateEntity = function () {
         return new Coin();
@@ -220,8 +220,9 @@ var GameEngine = /** @class */ (function () {
         this.coins = [];
         this.enemies = [];
         window.requestAnimationFrame(function () { return _this.gameLoop(Date.now()); });
-        this.coinGeneratorInterval = new GenerateEntity(new CoinFactory()).generateEntity(this.coins);
-        this.enemyGeneratorInterval = new GenerateEntity(new EnemyFactory()).generateEntity(this.enemies);
+        var coinFactory = new CoinFactory(MIN_COIN_DELAY, MAX_COIN_DELAY);
+        this.coinGeneratorInterval = new GenerateEntity(coinFactory).generateEntity(this.coins);
+        this.enemyGeneratorInterval = new GenerateEntity(new EnemyFactory(MIN_ENEMY_DELAY, MAX_ENEMY_DELAY)).generateEntity(this.enemies);
     };
     return GameEngine;
 }());
