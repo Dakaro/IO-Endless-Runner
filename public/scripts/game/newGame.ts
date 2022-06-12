@@ -384,6 +384,8 @@ class GameEngine {
 
     private endGame() {
       GAME_ON = 0
+      this.coinGeneratorInterval.clear()
+      this.enemyGeneratorInterval.clear()
       modalEl!.style.display = "block";
       countdownEl!.style.display = "block";
       overEl!.style.display = "block";
