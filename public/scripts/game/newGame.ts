@@ -234,7 +234,7 @@ class Player {
           --this.lives
           hearthsEl[this.lives].classList.add("grabItem");
           containerEl!.classList.add("hit");
-          setTimeout(() => { hearthsEl[this.lives].remove(); containerEl!.classList.remove("hit") }, 200);
+          setTimeout(() => { if( this.lives >= 0) {hearthsEl[this.lives].remove();} containerEl!.classList.remove("hit") }, 200);
       }
     }
 

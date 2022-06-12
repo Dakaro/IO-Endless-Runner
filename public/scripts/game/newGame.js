@@ -205,7 +205,9 @@ var Player = /** @class */ (function () {
             --this.lives;
             hearthsEl[this.lives].classList.add("grabItem");
             containerEl.classList.add("hit");
-            setTimeout(function () { hearthsEl[_this.lives].remove(); containerEl.classList.remove("hit"); }, 200);
+            setTimeout(function () { if (_this.lives >= 0) {
+                hearthsEl[_this.lives].remove();
+            } containerEl.classList.remove("hit"); }, 200);
         }
     };
     Player.prototype.grabCoin = function (coin) {
