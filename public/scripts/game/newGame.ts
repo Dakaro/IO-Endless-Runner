@@ -213,11 +213,17 @@ class Controller {
     }
 
     keyUpHandler(e) {
-        if (e.keyCode == UP || e.keyCode == SPACE) this.keysInput.up = false
+        if (e.keyCode == UP || e.keyCode == SPACE){
+            e.preventDefault()    
+           this.keysInput.up = false
+        }
     }
 
     keyDownHandler(e) {
-        if (e.keyCode == UP || e.keyCode == SPACE) this.keysInput.up = true
+        if (e.keyCode == UP || e.keyCode == SPACE){
+            e.preventDefault()    
+           this.keysInput.up = true
+        }
     }
 }
 

@@ -182,12 +182,16 @@ var Controller = /** @class */ (function () {
         window.addEventListener("keydown", this.keyDownHandler.bind(this), false);
     }
     Controller.prototype.keyUpHandler = function (e) {
-        if (e.keyCode == UP || e.keyCode == SPACE)
+        if (e.keyCode == UP || e.keyCode == SPACE) {
+            e.preventDefault();
             this.keysInput.up = false;
+        }
     };
     Controller.prototype.keyDownHandler = function (e) {
-        if (e.keyCode == UP || e.keyCode == SPACE)
+        if (e.keyCode == UP || e.keyCode == SPACE) {
+            e.preventDefault();
             this.keysInput.up = true;
+        }
     };
     return Controller;
 }());
