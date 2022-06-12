@@ -50,7 +50,7 @@ var setRandomInterval = function (intervalFunction, minDelay, maxDelay) {
     };
     runInterval();
     return {
-        clear: function () { clearTimeout(timeout); },
+        clear: function () { clearTimeout(timeout); }
     };
 };
 //enemy concrete factory
@@ -168,7 +168,7 @@ var Player = /** @class */ (function () {
         if (!coin.entityDiv.classList.contains("grabItem")) {
             coinIconEl.classList.add("coinJump");
             this.coins++;
-            scoreAmountEl.innerHTML = this.coins;
+            scoreAmountEl.innerHTML = String(this.coins);
         }
         coin.entityDiv.classList.add("grabItem");
         setTimeout(function () { coin.remove(); coinIconEl.classList.remove("coinJump"); }, 200);
@@ -253,15 +253,15 @@ var GameEngine = /** @class */ (function () {
     };
     GameEngine.prototype.startProcedure = function () {
         var count = 3;
-        countdownEl.innerHTML = count;
+        countdownEl.innerHTML = String(count);
         count--;
         var countdownInterval = setInterval(function () {
-            countdownEl.innerHTML = count;
+            countdownEl.innerHTML = String(count);
             count--;
             if (count == -1) {
                 clearInterval(countdownInterval);
                 countdownEl.style.display = "none";
-                modal.style.display = "none";
+                modalEl.style.display = "none";
             }
         }, 1000);
     };
@@ -298,7 +298,7 @@ var GameEngine = /** @class */ (function () {
             "Final distance: ".concat(finalDistance, "m") +
                 "<br />" +
                 "Collected coins: ".concat(finalScore);
-          this.sendResultToDb(finalScore, finalDistance)
+        this.sendResultToDb(finalScore, finalDistance);
     };
     // push result to DB
     GameEngine.prototype.sendResultToDb = function (coins, distance) {
@@ -316,7 +316,7 @@ var GameEngine = /** @class */ (function () {
     };
     return GameEngine;
 }());
-startFlag = false;
+var startFlag = false;
 countdownEl.onclick = function () {
     if (startFlag == false) {
         startFlag = true;
@@ -325,5 +325,5 @@ countdownEl.onclick = function () {
     }
 };
 playAgainEl.onclick = function () {
-    window.location.reload(true);
+    window.location.reload();
 };

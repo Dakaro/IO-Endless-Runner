@@ -1,14 +1,14 @@
 // ELEMENTS FROM HTML
-let containerEl = document.getElementById("container");
-let countdownEl = document.querySelector(".countdown");
-let scoreAmountEl = document.getElementById("score");
-let modalEl = document.getElementById("modal");
-let overEl = document.querySelector(".gameOver");
-let playAgainEl = document.querySelector(".playAgain");
-let coinIconEl = document.querySelector(".coinIcon");
-let distanceEl = document.querySelector(".distance");
-let scoreEl = document.getElementById("score");
-let hearthsEl = document.querySelectorAll(".hearth");
+let containerEl: HTMLElement|null = document.getElementById("container");
+let countdownEl: HTMLElement|null = document.querySelector(".countdown");
+let scoreAmountEl: HTMLElement|null = document.getElementById("score");
+let modalEl: HTMLElement|null = document.getElementById("modal");
+let overEl: HTMLElement|null = document.querySelector(".gameOver");
+let playAgainEl: HTMLElement|null = document.querySelector(".playAgain");
+let coinIconEl: HTMLElement|null = document.querySelector(".coinIcon");
+let distanceEl: HTMLElement|null = document.querySelector(".distance");
+let scoreEl: HTMLElement|null = document.getElementById("score");
+let hearthsEl: NodeListOf<Element> = document.querySelectorAll(".hearth");
 
 // LITERALS
 const MIN_COIN_DELAY = 2000
@@ -109,7 +109,7 @@ class Enemy extends AbstractEntity {
         super()
         this.entityDiv = document.createElement("div");
         this.entityDiv.classList.add("enemy");
-        containerEl.appendChild(this.entityDiv);
+        containerEl!.appendChild(this.entityDiv);
     }
 
     checkCollision(playerPosition: number): boolean{
@@ -122,7 +122,7 @@ class Coin extends AbstractEntity {
         super()
         this.entityDiv = document.createElement("div");
         this.entityDiv.classList.add("coin");
-        containerEl.appendChild(this.entityDiv);
+        containerEl!.appendChild(this.entityDiv);
     }
 
     checkCollision(playerPosition: number): boolean{
@@ -137,9 +137,9 @@ class GenerateEntity {
         this.factory = factory;
     }
 
-    public generateEntity(entityArray): { () => void} {
+    public generateEntity(entityArray: AbstractEntity[]): { clear: () => void} {
         return setRandomInterval(() => {
-          let containerList = containerEl.children
+          let containerList = containerEl!.children
           if( !(containerList[ containerList.length - 2 ].className == 'coin') && !(containerList[ containerList.length - 2 ].className == 'enemy') ){
             let newEntity = this.factory.CreateEntity();
             entityArray.push(newEntity)
@@ -151,7 +151,7 @@ class GenerateEntity {
 }
 
 class Player {
-    playerDiv: HTMLElement
+    playerDiv: HTMLElement|null
     position: number
     lives: number
     immune: boolean
@@ -168,13 +168,13 @@ class Player {
     }
 
     jump(): any {
-      if ( !this.playerDiv.classList.contains("goJump") ) {
-          this.playerDiv.classList.add("goJump");
+      if ( !this.playerDiv!.classList.contains("goJump") ) {
+          this.playerDiv!.classList.add("goJump");
 
           // dividing time to better collision wtih enemy managment
           setTimeout( () => {this.position = 100 }, 100);
           setTimeout(() => { this.position = 0 }, 500);
-          setTimeout( () => {this.playerDiv.classList.remove("goJump")} , 600);
+          setTimeout( () => {this.playerDiv!.classList.remove("goJump")} , 600);
         }    }
 
     getHit(): any {
@@ -184,40 +184,41 @@ class Player {
 
           --this.lives
           hearthsEl[this.lives].classList.add("grabItem");
-          containerEl.classList.add("hit");
-          setTimeout(() => { hearthsEl[this.lives].remove(); containerEl.classList.remove("hit") }, 200);
+          containerEl!.classList.add("hit");
+          setTimeout(() => { hearthsEl[this.lives].remove(); containerEl!.classList.remove("hit") }, 200);
       }
     }
 
     grabCoin(coin: Coin): any{
 
           if( !coin.entityDiv.classList.contains("grabItem") ){
-            coinIconEl.classList.add("coinJump");
+            coinIconEl!.classList.add("coinJump");
             this.coins++;
-            scoreAmountEl.innerHTML = this.coins;
+            scoreAmountEl!.innerHTML = String(this.coins);
           }
           coin.entityDiv.classList.add("grabItem")
-          setTimeout(() => { coin.remove(); coinIconEl.classList.remove("coinJump"); }, 200);
+          setTimeout(() => { coin.remove(); coinIconEl!.classList.remove("coinJump"); }, 200);
     }
 
 }
 
 
 class Controller {
-    keysInput: {up: boolean}
+    keysInput: { up: boolean }
 
-    constructor(){
+    constructor() {
         this.keysInput = { up: false }
         window.addEventListener("keyup", this.keyUpHandler.bind(this), false)
         window.addEventListener("keydown", this.keyDownHandler.bind(this), false)
     }
 
-    keyUpHandler(e){
-        if ( e.keyCode == UP || e.keyCode == SPACE ) this.keysInput.up = false
+    keyUpHandler(e) {
+        if (e.keyCode == UP || e.keyCode == SPACE) this.keysInput.up = false
     }
 
-    keyDownHandler(e){
-        if ( e.keyCode == UP || e.keyCode == SPACE ) this.keysInput.up = true
+    keyDownHandler(e) {
+        if (e.keyCode == UP || e.keyCode == SPACE) this.keysInput.up = true
+    }
 }
 
 
@@ -273,7 +274,7 @@ class GameEngine {
       this.coinsUpdate(this.player.position)
       this.enemiesUpdate(this.player.position)
 
-    setInterval( () =>  {  if ( SPEED >= MAX_SPEED ) SPEED += ACCELERATION; } , 3000);
+      setInterval( () =>  {  if ( SPEED >= MAX_SPEED ) SPEED += ACCELERATION; } , 3000);
     }
 
     gameLoop(timeStamp: number): any{
@@ -284,20 +285,20 @@ class GameEngine {
     countDistance(): any{
       setInterval( () => { if( GAME_ON ){
        this.player.distance++;
-       distanceEl.innerHTML = this.player.distance + "m";} } , 100);
+       distanceEl!.innerHTML = this.player.distance + "m";} } , 100);
     }
 
     startProcedure(): any{
       let count = 3;
-      countdownEl.innerHTML = count;
+      countdownEl!.innerHTML = String(count);
       count--;
       const countdownInterval = setInterval(function () {
-        countdownEl.innerHTML = count;
+        countdownEl!.innerHTML = String(count);
         count--;
         if (count == -1) {
           clearInterval(countdownInterval);
-            countdownEl.style.display = "none";
-            modal.style.display = "none";
+            countdownEl!.style.display = "none";
+            modalEl!.style.display = "none";
         }
       }, 1000);
     }
@@ -322,20 +323,20 @@ class GameEngine {
 
     endGame() {
       GAME_ON = 0
-      modalEl.style.display = "block";
-      countdownEl.style.display = "block";
-      overEl.style.display = "block";
-      playAgainEl.style.display = "block";
+      modalEl!.style.display = "block";
+      countdownEl!.style.display = "block";
+      overEl!.style.display = "block";
+      playAgainEl!.style.display = "block";
 
-      modalEl.style.backgroundColor = "black";
-      modalEl.style.zIndex = "1000";
-      coinIconEl.style.display = "none";
-      distanceEl.style.display = "none";
-      scoreEl.style.display = "none";
-      countdownEl.style.fontSize = "40px";
+      modalEl!.style.backgroundColor = "black";
+      modalEl!.style.zIndex = "1000";
+      coinIconEl!.style.display = "none";
+      distanceEl!.style.display = "none";
+      scoreEl!.style.display = "none";
+      countdownEl!.style.fontSize = "40px";
       const finalDistance = this.player.distance;
       const finalScore = this.player.coins
-      countdownEl.innerHTML =
+      countdownEl!.innerHTML =
         `Final distance: ${finalDistance}m` +
         "<br />" +
         `Collected coins: ${finalScore}`;
@@ -343,13 +344,13 @@ class GameEngine {
     }
 
     // push result to DB
-    sendResultToDb(coins, distance): any{
+    sendResultToDb(coins: number, distance: number): any{
       let xhr = new XMLHttpRequest()
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
           var coinValueSpan = document.getElementById("user-nav-coins")
           var resJson = JSON.parse(xhr.response)
-          coinValueSpan.textContent = resJson.points
+          coinValueSpan!.textContent = resJson.points
         }
       }
       xhr.open("POST", `/game/${coins}/${distance}`)
@@ -359,8 +360,8 @@ class GameEngine {
 
 }
 
-startFlag = false
-countdownEl.onclick = function () {
+let startFlag = false
+countdownEl!.onclick = function () {
   if (startFlag == false) {
       startFlag = true;
       let gameEngine = new GameEngine()
@@ -368,6 +369,6 @@ countdownEl.onclick = function () {
     }
   }
 
-  playAgainEl.onclick = function () {
-  window.location.reload(true);
+  playAgainEl!.onclick = function () {
+  window.location.reload();
 }
