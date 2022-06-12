@@ -22,6 +22,8 @@ const IMMUNITY_DURATION = 200
 
 const MAX_SPEED = -19
 const ACCELERATION = -0.001
+const START_POSITION_50px = 750
+
 let SPEED = -6
 let GAME_ON = 1
 
@@ -47,47 +49,58 @@ const setRandomInterval = (intervalFunction, minDelay, maxDelay) => {
 };
 
 //entity abstract factory
-interface EntityFactory {
-    MIN_DELAY: number;
-    MAX_DELAY: number;
-    CreateEntity(): AbstractEntity;
+abstract class EntityFactory {
+
+    protected MIN_DELAY: number;
+    protected MAX_DELAY: number;
+    
+    public getMinDelay() {
+        return this.MIN_DELAY;
+    }
+    public getMaxDelay() {
+        return this.MAX_DELAY;
+    }
+
+    abstract CreateEntity(): AbstractEntity;
 }
 
 //enemy concrete factory
-class EnemyFactory implements EntityFactory {
-    MIN_DELAY: number;
-    MAX_DELAY: number;
+class EnemyFactory extends EntityFactory {
+
     constructor(MIN_DELAY: number, MAX_DELAY: number) {
+        super()
         this.MIN_DELAY = MIN_DELAY;
         this.MAX_DELAY = MAX_DELAY;
     }
+
     public CreateEntity(): AbstractEntity {
-        return new Enemy();
+        return new Enemy(SPEED);
     }
 }
 
 //coin concrete facotry
-class CoinFactory implements EntityFactory {
-    MIN_DELAY: number;
-    MAX_DELAY: number;
+class CoinFactory extends EntityFactory {
+
     constructor(MIN_DELAY: number, MAX_DELAY: number) {
+        super()
         this.MIN_DELAY = MIN_DELAY;
         this.MAX_DELAY = MAX_DELAY;
     }
-    CreateEntity(): AbstractEntity {
-        return new Coin();
+
+    public CreateEntity(): AbstractEntity {
+        return new Coin(SPEED);
     }
 }
 
 //abstract entity
 abstract class AbstractEntity {
-    position: number;
-    entityDiv: HTMLDivElement;
-    ownSpeed: number
+
+    protected position: number;
+    protected entityDiv: HTMLDivElement;
+    protected ownSpeed: number
 
     constructor() {
-        this.position = 750;
-        this.ownSpeed = SPEED
+        this.position = START_POSITION_50px;
     }
 
     public changePosition() {
@@ -95,8 +108,16 @@ abstract class AbstractEntity {
         this.entityDiv.style.left = this.position + 'px';
     }
 
-    remove(){
+    public remove(){
         this.entityDiv.remove();
+    }
+
+    public getPosition() {
+        return this.position;
+    }
+
+    public getEntityDiv() {
+        return this.entityDiv;
     }
 
     abstract checkCollision(playerPosition: number): boolean;
@@ -105,33 +126,37 @@ abstract class AbstractEntity {
 
 class Enemy extends AbstractEntity {
 
-    constructor(){
+    constructor(SPEED: number){
         super()
+        this.ownSpeed = SPEED
         this.entityDiv = document.createElement("div");
         this.entityDiv.classList.add("enemy");
         containerEl!.appendChild(this.entityDiv);
     }
 
-    checkCollision(playerPosition: number): boolean{
+    public checkCollision(playerPosition: number): boolean{
         return this.position < 70 && this.position > 20 && playerPosition <= 70
     }
 }
 
 class Coin extends AbstractEntity {
-    constructor(){
+
+    constructor(SPEED: number){
         super()
+        this.ownSpeed = SPEED;
         this.entityDiv = document.createElement("div");
         this.entityDiv.classList.add("coin");
         containerEl!.appendChild(this.entityDiv);
     }
 
-    checkCollision(playerPosition: number): boolean{
+    public checkCollision(playerPosition: number): boolean{
         return this.position < 70 && this.position > 20 && playerPosition >= 60
     }
 }
 
 class GenerateEntity {
-    factory: EntityFactory;
+
+    private factory: EntityFactory;
 
     constructor(factory: EntityFactory) {
         this.factory = factory;
@@ -145,18 +170,18 @@ class GenerateEntity {
             entityArray.push(newEntity)
           }
         },
-        this.factory.MIN_DELAY, this.factory.MAX_DELAY)
+        this.factory.getMinDelay(), this.factory.getMaxDelay())
       }
-
 }
 
 class Player {
-    playerDiv: HTMLElement|null
-    position: number
-    lives: number
-    immune: boolean
-    distance: number
-    coins: number
+
+    private playerDiv: HTMLElement|null
+    private position: number
+    private lives: number
+    private immune: boolean
+    private distance: number
+    private coins: number
 
     constructor(){
         this.playerDiv = document.getElementById("hero");
@@ -167,7 +192,31 @@ class Player {
         this.immune = false
     }
 
-    jump(): any {
+    public getPosition() {
+        return this.position;
+    }
+
+    public getLives() {
+        return this.lives;
+    }
+
+    public takeLife(): any {
+        this.lives -= 1;
+    }
+
+    public getDistance() {
+        return this.distance;
+    }
+
+    public increaseDistance() {
+        this.distance++;
+    }
+
+    public getCoins() {
+        return this.coins;
+    }
+
+    public jump(): any {
       if ( !this.playerDiv!.classList.contains("goJump") ) {
           this.playerDiv!.classList.add("goJump");
 
@@ -177,7 +226,7 @@ class Player {
           setTimeout( () => {this.playerDiv!.classList.remove("goJump")} , 600);
         }    }
 
-    getHit(): any {
+    public getHit(): any {
       if (this.lives > 0 && this.position == 0 && !this.immune ) {
           this.immune = true
           setTimeout(() => this.immune = false, IMMUNITY_DURATION)
@@ -189,14 +238,14 @@ class Player {
       }
     }
 
-    grabCoin(coin: Coin): any{
+    public grabCoin(coin: Coin): any{
 
-          if( !coin.entityDiv.classList.contains("grabItem") ){
+          if( !coin.getEntityDiv().classList.contains("grabItem") ){
             coinIconEl!.classList.add("coinJump");
             this.coins++;
             scoreAmountEl!.innerHTML = String(this.coins);
           }
-          coin.entityDiv.classList.add("grabItem")
+          coin.getEntityDiv().classList.add("grabItem")
           setTimeout(() => { coin.remove(); coinIconEl!.classList.remove("coinJump"); }, 200);
     }
 
@@ -204,7 +253,7 @@ class Player {
 
 
 class Controller {
-    keysInput: { up: boolean }
+    private keysInput: { up: boolean }
 
     constructor() {
         this.keysInput = { up: false }
@@ -212,14 +261,19 @@ class Controller {
         window.addEventListener("keydown", this.keyDownHandler.bind(this), false)
     }
 
-    keyUpHandler(e) {
+    public isKeyUp(): boolean {
+        if(this.keysInput.up) return true;
+        return false;
+    }
+
+    public keyUpHandler(e) {
         if (e.keyCode == UP || e.keyCode == SPACE){
             e.preventDefault()    
            this.keysInput.up = false
         }
     }
 
-    keyDownHandler(e) {
+    public keyDownHandler(e) {
         if (e.keyCode == UP || e.keyCode == SPACE){
             e.preventDefault()    
            this.keysInput.up = true
@@ -229,18 +283,18 @@ class Controller {
 
 
 class GameEngine {
-    controller: Controller
-    player: Player
-    coins: Coin[]
-    enemies: Enemy[]
-    coinGeneratorInterval: {clear: () => void}
-    enemyGeneratorInterval: {clear: () => void}
+    private controller: Controller
+    private player: Player
+    private coins: Coin[]
+    private enemies: Enemy[]
+    private coinGeneratorInterval: {clear: () => void}
+    private enemyGeneratorInterval: {clear: () => void}
 
-    coinsUpdate(playerPosition: number): any {
+    private coinsUpdate(playerPosition: number): any {
         this.coins.forEach((coin, index) => {
             // Move each coin to the left and remove if outside the box
             coin.changePosition()
-            if (coin.position <= -50) {
+            if (coin.getPosition() <= -50) {
                 this.coins.splice(index, 1)
                 coin.remove()
             }
@@ -253,11 +307,11 @@ class GameEngine {
         })
     }
 
-    enemiesUpdate(playerPosition: number): any {
+    private enemiesUpdate(playerPosition: number): any {
         this.enemies.forEach((enemy, index) => {
             // Move each enemy to the left and remove if outside the box
             enemy.changePosition()
-            if (enemy.position <= -50) {
+            if (enemy.getPosition() <= -50) {
                 this.enemies.splice(index, 1)
                 enemy.remove()
             }
@@ -267,34 +321,34 @@ class GameEngine {
         })
     }
 
-    update(timeStamp: number): any{
+    private update(timeStamp: number): any{
       // Jump on key press
-      if(this.controller.keysInput.up ) this.player.jump()
+      if(this.controller.isKeyUp()) this.player.jump()
 
       // check game over
-      if( this.player.lives == 0 ){
+      if( this.player.getLives() == 0 ){
         this.endGame();
-        this.player.lives = -1
+        this.player.takeLife();
       }
 
-      this.coinsUpdate(this.player.position)
-      this.enemiesUpdate(this.player.position)
+      this.coinsUpdate(this.player.getPosition())
+      this.enemiesUpdate(this.player.getPosition())
 
       setInterval( () =>  {  if ( SPEED >= MAX_SPEED ) SPEED += ACCELERATION; } , 3000);
     }
 
-    gameLoop(timeStamp: number): any{
+    private gameLoop(timeStamp: number): any{
         this.update(timeStamp)
         window.requestAnimationFrame(() => this.gameLoop(Date.now()))
     }
 
-    countDistance(): any{
+    private countDistance(): any{
       setInterval( () => { if( GAME_ON ){
-       this.player.distance++;
-       distanceEl!.innerHTML = this.player.distance + "m";} } , 100);
+       this.player.increaseDistance();
+       distanceEl!.innerHTML = this.player.getDistance() + "m";} } , 100);
     }
 
-    startProcedure(): any{
+    private startProcedure(): any{
       let count = 3;
       countdownEl!.innerHTML = String(count);
       count--;
@@ -309,7 +363,7 @@ class GameEngine {
       }, 1000);
     }
 
-    init(): any {
+    public init(): any {
         this.controller = new Controller()
         this.player = new Player()
         this.coins = []
@@ -321,13 +375,14 @@ class GameEngine {
           setTimeout(() => {
           window.requestAnimationFrame(() => this.gameLoop(Date.now()));
           let coinFactory = new CoinFactory(MIN_COIN_DELAY, MAX_COIN_DELAY);
+          let enemyFactory = new EnemyFactory(MIN_ENEMY_DELAY, MAX_ENEMY_DELAY)
           this.coinGeneratorInterval = new GenerateEntity(coinFactory).generateEntity(this.coins);
-          this.enemyGeneratorInterval = new GenerateEntity(new EnemyFactory(MIN_ENEMY_DELAY, MAX_ENEMY_DELAY)).generateEntity(this.enemies)
+          this.enemyGeneratorInterval = new GenerateEntity(enemyFactory).generateEntity(this.enemies)
         }, 2000);
 
     }
 
-    endGame() {
+    private endGame() {
       GAME_ON = 0
       modalEl!.style.display = "block";
       countdownEl!.style.display = "block";
@@ -340,8 +395,8 @@ class GameEngine {
       distanceEl!.style.display = "none";
       scoreEl!.style.display = "none";
       countdownEl!.style.fontSize = "40px";
-      const finalDistance = this.player.distance;
-      const finalScore = this.player.coins
+      const finalDistance = this.player.getDistance();
+      const finalScore = this.player.getCoins();
       countdownEl!.innerHTML =
         `Final distance: ${finalDistance}m` +
         "<br />" +
@@ -350,7 +405,7 @@ class GameEngine {
     }
 
     // push result to DB
-    sendResultToDb(coins: number, distance: number): any{
+    private sendResultToDb(coins: number, distance: number): any{
       let xhr = new XMLHttpRequest()
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {

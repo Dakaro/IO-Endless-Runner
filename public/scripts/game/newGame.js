@@ -33,6 +33,7 @@ var LIVES_NUMBER = 3;
 var IMMUNITY_DURATION = 200;
 var MAX_SPEED = -19;
 var ACCELERATION = -0.001;
+var START_POSITION_50px = 750;
 var SPEED = -6;
 var GAME_ON = 1;
 // KEYS
@@ -53,33 +54,50 @@ var setRandomInterval = function (intervalFunction, minDelay, maxDelay) {
         clear: function () { clearTimeout(timeout); }
     };
 };
+//entity abstract factory
+var EntityFactory = /** @class */ (function () {
+    function EntityFactory() {
+    }
+    EntityFactory.prototype.getMinDelay = function () {
+        return this.MIN_DELAY;
+    };
+    EntityFactory.prototype.getMaxDelay = function () {
+        return this.MAX_DELAY;
+    };
+    return EntityFactory;
+}());
 //enemy concrete factory
-var EnemyFactory = /** @class */ (function () {
+var EnemyFactory = /** @class */ (function (_super) {
+    __extends(EnemyFactory, _super);
     function EnemyFactory(MIN_DELAY, MAX_DELAY) {
-        this.MIN_DELAY = MIN_DELAY;
-        this.MAX_DELAY = MAX_DELAY;
+        var _this = _super.call(this) || this;
+        _this.MIN_DELAY = MIN_DELAY;
+        _this.MAX_DELAY = MAX_DELAY;
+        return _this;
     }
     EnemyFactory.prototype.CreateEntity = function () {
-        return new Enemy();
+        return new Enemy(SPEED);
     };
     return EnemyFactory;
-}());
+}(EntityFactory));
 //coin concrete facotry
-var CoinFactory = /** @class */ (function () {
+var CoinFactory = /** @class */ (function (_super) {
+    __extends(CoinFactory, _super);
     function CoinFactory(MIN_DELAY, MAX_DELAY) {
-        this.MIN_DELAY = MIN_DELAY;
-        this.MAX_DELAY = MAX_DELAY;
+        var _this = _super.call(this) || this;
+        _this.MIN_DELAY = MIN_DELAY;
+        _this.MAX_DELAY = MAX_DELAY;
+        return _this;
     }
     CoinFactory.prototype.CreateEntity = function () {
-        return new Coin();
+        return new Coin(SPEED);
     };
     return CoinFactory;
-}());
+}(EntityFactory));
 //abstract entity
 var AbstractEntity = /** @class */ (function () {
     function AbstractEntity() {
-        this.position = 750;
-        this.ownSpeed = SPEED;
+        this.position = START_POSITION_50px;
     }
     AbstractEntity.prototype.changePosition = function () {
         this.position += this.ownSpeed;
@@ -88,12 +106,19 @@ var AbstractEntity = /** @class */ (function () {
     AbstractEntity.prototype.remove = function () {
         this.entityDiv.remove();
     };
+    AbstractEntity.prototype.getPosition = function () {
+        return this.position;
+    };
+    AbstractEntity.prototype.getEntityDiv = function () {
+        return this.entityDiv;
+    };
     return AbstractEntity;
 }());
 var Enemy = /** @class */ (function (_super) {
     __extends(Enemy, _super);
-    function Enemy() {
+    function Enemy(SPEED) {
         var _this = _super.call(this) || this;
+        _this.ownSpeed = SPEED;
         _this.entityDiv = document.createElement("div");
         _this.entityDiv.classList.add("enemy");
         containerEl.appendChild(_this.entityDiv);
@@ -106,8 +131,9 @@ var Enemy = /** @class */ (function (_super) {
 }(AbstractEntity));
 var Coin = /** @class */ (function (_super) {
     __extends(Coin, _super);
-    function Coin() {
+    function Coin(SPEED) {
         var _this = _super.call(this) || this;
+        _this.ownSpeed = SPEED;
         _this.entityDiv = document.createElement("div");
         _this.entityDiv.classList.add("coin");
         containerEl.appendChild(_this.entityDiv);
@@ -130,7 +156,7 @@ var GenerateEntity = /** @class */ (function () {
                 var newEntity = _this.factory.CreateEntity();
                 entityArray.push(newEntity);
             }
-        }, this.factory.MIN_DELAY, this.factory.MAX_DELAY);
+        }, this.factory.getMinDelay(), this.factory.getMaxDelay());
     };
     return GenerateEntity;
 }());
@@ -143,6 +169,24 @@ var Player = /** @class */ (function () {
         this.lives = LIVES_NUMBER;
         this.immune = false;
     }
+    Player.prototype.getPosition = function () {
+        return this.position;
+    };
+    Player.prototype.getLives = function () {
+        return this.lives;
+    };
+    Player.prototype.takeLife = function () {
+        this.lives -= 1;
+    };
+    Player.prototype.getDistance = function () {
+        return this.distance;
+    };
+    Player.prototype.increaseDistance = function () {
+        this.distance++;
+    };
+    Player.prototype.getCoins = function () {
+        return this.coins;
+    };
     Player.prototype.jump = function () {
         var _this = this;
         if (!this.playerDiv.classList.contains("goJump")) {
@@ -165,12 +209,12 @@ var Player = /** @class */ (function () {
         }
     };
     Player.prototype.grabCoin = function (coin) {
-        if (!coin.entityDiv.classList.contains("grabItem")) {
+        if (!coin.getEntityDiv().classList.contains("grabItem")) {
             coinIconEl.classList.add("coinJump");
             this.coins++;
             scoreAmountEl.innerHTML = String(this.coins);
         }
-        coin.entityDiv.classList.add("grabItem");
+        coin.getEntityDiv().classList.add("grabItem");
         setTimeout(function () { coin.remove(); coinIconEl.classList.remove("coinJump"); }, 200);
     };
     return Player;
@@ -181,6 +225,11 @@ var Controller = /** @class */ (function () {
         window.addEventListener("keyup", this.keyUpHandler.bind(this), false);
         window.addEventListener("keydown", this.keyDownHandler.bind(this), false);
     }
+    Controller.prototype.isKeyUp = function () {
+        if (this.keysInput.up)
+            return true;
+        return false;
+    };
     Controller.prototype.keyUpHandler = function (e) {
         if (e.keyCode == UP || e.keyCode == SPACE) {
             e.preventDefault();
@@ -203,7 +252,7 @@ var GameEngine = /** @class */ (function () {
         this.coins.forEach(function (coin, index) {
             // Move each coin to the left and remove if outside the box
             coin.changePosition();
-            if (coin.position <= -50) {
+            if (coin.getPosition() <= -50) {
                 _this.coins.splice(index, 1);
                 coin.remove();
             }
@@ -218,7 +267,7 @@ var GameEngine = /** @class */ (function () {
         this.enemies.forEach(function (enemy, index) {
             // Move each enemy to the left and remove if outside the box
             enemy.changePosition();
-            if (enemy.position <= -50) {
+            if (enemy.getPosition() <= -50) {
                 _this.enemies.splice(index, 1);
                 enemy.remove();
             }
@@ -229,15 +278,15 @@ var GameEngine = /** @class */ (function () {
     };
     GameEngine.prototype.update = function (timeStamp) {
         // Jump on key press
-        if (this.controller.keysInput.up)
+        if (this.controller.isKeyUp())
             this.player.jump();
         // check game over
-        if (this.player.lives == 0) {
+        if (this.player.getLives() == 0) {
             this.endGame();
-            this.player.lives = -1;
+            this.player.takeLife();
         }
-        this.coinsUpdate(this.player.position);
-        this.enemiesUpdate(this.player.position);
+        this.coinsUpdate(this.player.getPosition());
+        this.enemiesUpdate(this.player.getPosition());
         setInterval(function () { if (SPEED >= MAX_SPEED)
             SPEED += ACCELERATION; }, 3000);
     };
@@ -250,8 +299,8 @@ var GameEngine = /** @class */ (function () {
         var _this = this;
         setInterval(function () {
             if (GAME_ON) {
-                _this.player.distance++;
-                distanceEl.innerHTML = _this.player.distance + "m";
+                _this.player.increaseDistance();
+                distanceEl.innerHTML = _this.player.getDistance() + "m";
             }
         }, 100);
     };
@@ -280,8 +329,9 @@ var GameEngine = /** @class */ (function () {
         setTimeout(function () {
             window.requestAnimationFrame(function () { return _this.gameLoop(Date.now()); });
             var coinFactory = new CoinFactory(MIN_COIN_DELAY, MAX_COIN_DELAY);
+            var enemyFactory = new EnemyFactory(MIN_ENEMY_DELAY, MAX_ENEMY_DELAY);
             _this.coinGeneratorInterval = new GenerateEntity(coinFactory).generateEntity(_this.coins);
-            _this.enemyGeneratorInterval = new GenerateEntity(new EnemyFactory(MIN_ENEMY_DELAY, MAX_ENEMY_DELAY)).generateEntity(_this.enemies);
+            _this.enemyGeneratorInterval = new GenerateEntity(enemyFactory).generateEntity(_this.enemies);
         }, 2000);
     };
     GameEngine.prototype.endGame = function () {
@@ -296,8 +346,8 @@ var GameEngine = /** @class */ (function () {
         distanceEl.style.display = "none";
         scoreEl.style.display = "none";
         countdownEl.style.fontSize = "40px";
-        var finalDistance = this.player.distance;
-        var finalScore = this.player.coins;
+        var finalDistance = this.player.getDistance();
+        var finalScore = this.player.getCoins();
         countdownEl.innerHTML =
             "Final distance: ".concat(finalDistance, "m") +
                 "<br />" +
