@@ -21,7 +21,7 @@ Available at **https://io-coin-hunter.herokuapp.com/**
 
 ## Run in Docker
 To run this project with Docker you can:   
-* download Docker image from:  https://hub.docker.com/repository/docker/dakaro/endlessrunner/general 
+* download Docker image from:  https://hub.docker.com/r/dakaro/endlessrunner 
 * build your own image from our Dockerfile. 
 
 In container you have final version of our app. You only need to install dependencies and run project (details in Run Locally section).   
